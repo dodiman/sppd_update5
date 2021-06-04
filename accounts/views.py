@@ -11,9 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 # # Create your views here.
-# from .models import *
+from .models import *
 # from .forms import OrderForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm, CustomerForm
 # from .filters import OrderFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
@@ -27,8 +27,6 @@ def registerPage(request):
 			user = form.save()
 			username = form.cleaned_data.get('username')
 
-			group = Group.objects.get(name='customer')
-			user.groups.add(group)
 
 			messages.success(request, 'Account was created for ' + username)
 
@@ -81,7 +79,12 @@ def home(request):
 
 @login_required(login_url='login')
 def userPage(request):
-	context = {}
+	# orders = request.user.customer.order_set.all()
+	orders = request.user.customer
+	context = {
+		'orders': orders
+	}
+
 	return render(request, 'accounts/user2.html', context)
 
 
@@ -92,20 +95,25 @@ def userPage(request):
 
 # 	return render(request, 'accounts/products.html', {'products':products})
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 # @allowed_users(allowed_roles=['admin'])
 def customer(request, pk_test):
 	customer = Customer.objects.get(id=pk_test)
 
-	orders = customer.order_set.all()
-	order_count = orders.count()
+	# orders = customer.order_set.all()
+	# order_count = orders.count()
 
-	myFilter = OrderFilter(request.GET, queryset=orders)
-	orders = myFilter.qs 
+	# myFilter = OrderFilter(request.GET, queryset=orders)
+	# orders = myFilter.qs 
 
-	context = {'customer':customer, 'orders':orders, 'order_count':order_count,
-	'myFilter':myFilter}
-	return render(request, 'accounts/customer.html',context)
+	context = {
+		'customer':customer,
+	 	# 'orders':orders,
+	 	# 'order_count':order_count,
+	 	# 'myFilter':myFilter
+	}
+
+	return render(request, 'accounts/customer2.html',context)
 
 # @login_required(login_url='login')
 # @allowed_users(allowed_roles=['admin'])
@@ -151,3 +159,18 @@ def customer(request, pk_test):
 
 # 	context = {'item':order}
 # 	return render(request, 'accounts/delete.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def accountSettings(request):
+	customer = request.user.customer
+	form = CustomerForm(instance=customer)
+
+	if request.method == 'POST':
+		form = CustomerForm(request.POST, request.FILES,instance=customer)
+		if form.is_valid():
+			form.save()
+
+
+	context = {'form':form}
+	return render(request, 'accounts/account_settings2.html', context)

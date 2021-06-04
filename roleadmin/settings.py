@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    'accounts',
+    # 'accounts',
     'myapi',
 
-    # 'accounts.apps.AccountsConfig',    # reset dengan email
+    'accounts.apps.AccountsConfig',    
     
-    # 'django_filters',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
