@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 
     'accounts',
     'myapi',
+
+    # 'accounts.apps.AccountsConfig',    # reset dengan email
+    
     # 'django_filters',
 ]
 
@@ -142,3 +145,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+# reset dengan email
+
+#SMTP Configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'takawatakawa321@gmail.com'
+EMAIL_HOST_PASSWORD = 'jsmkpiflbmrhgzjd'
