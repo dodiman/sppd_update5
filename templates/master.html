@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}MY APP{% endblock %}</title>
+	{% block style %} 
+
+	{% endblock %}
+</head>
+<body>
+	<div>
+		<p>header</p>
+		{% block sidebar %}
+        <ul>
+            <li><a href="{% url 'myapp_index' %}">Myapp</a></li>
+            <li><a href="{% url 'myapp_surat_perintah' %}">Surat Perintah</a></li>
+            <li><a href="{% url 'myapp_sppd' %}">SPPD</a></li>
+            <li><a href="{% url 'myapp_laporan' %}">Laporan</a></li>
+            <li><a href="{% url 'myapp_pegawai' %}">Pegawai</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+        </ul>
+        {% endblock %}
+
+	</div>
+	<div>
+		{% block content %}{% endblock %}
+	</div>
+	<div>
+		<p>footer</p>
+	</div>
+
+	{% block scripts %}
+	
+	{% endblock %}
+</body>
+</html>

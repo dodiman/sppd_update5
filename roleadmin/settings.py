@@ -40,9 +40,11 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'ajax_datatable',
 
     # 'accounts',
     'myapi',
+    'myapp',
 
     'accounts.apps.AccountsConfig',    
     
