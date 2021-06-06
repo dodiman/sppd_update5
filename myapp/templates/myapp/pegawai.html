@@ -1,5 +1,31 @@
 {% extends "master.html" %}
 
 {% block content %}
-<h2>halaman surat perintah</h2>
+<h2>halaman surat Pegawai</h2>
+<h2>data pegawai</h2>
+<table border="1">
+	<thead>
+		<tr>
+			<th>NO</th>
+			<th>NIP</th>
+			<th>Nama</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for value in pegawai %}
+		<tr>
+			<td>{{ forloop.counter }}</td>
+			<td>{{ value.nip }}</td>
+			<td>{{ value.nama }}</td>
+			<td><a href="{% url 'myapp_update_pegawai' value.id %}">edit</a> | <a onclick="return confirm('apakah anda yakin?'); " href="">hapus</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<h2>my form</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
 {% endblock %}

@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<h2>halaman SPPD</h2>
+<h2>halaman Pengeluaran</h2>
 <br />
-<h2>Data SPPD</h2>
+<h2>Data Pengeluaran</h2>
 <a href="">tambah</a>
 <br />
 <p></p>
@@ -20,11 +20,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for value in sppd %}
+		{% for value in pengeluaran %}
 		<tr>
-			<td>{{ value.nomor }}</td>
+			<td>{{ value.nomor_bukti_pengeluaran }}</td>
 			<td>
-				<a href="{% url 'myapp_show_sppd' value.id %}">lihat</a> | 
+				<a href="{% url 'myapp_show_pengeluaran' value.id %}">lihat</a> | 
 				<a href="">edit</a>  | 
 				<a href="">delete</a>
 			</td>

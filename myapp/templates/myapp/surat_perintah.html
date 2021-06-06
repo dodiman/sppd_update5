@@ -2,4 +2,22 @@
 
 {% block content %}
 <h2>halaman surat perintah</h2>
+<h2>my data</h2>
+<p><a href="{% url 'myapp_create_surat_perintah' %}">tambah data</a></p>
+<table border="1">
+	<thead>
+		<tr>
+			<th>Nomor</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for value in suratperintah %}
+		<tr>
+			<td>{{ value.nomor }}</td>
+			<td><a href="{% url 'myapp_show_surat_perintah' value.id %}">Lihat</a> | <a href="{% url 'myapp_update_surat_perintah' value.id %}">edit</a> | <a onclick="return confirm('apakah anda yakin?'); " href="{% url 'myapp_delete_surat_perintah' value.id %}">hapus</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
 {% endblock %}

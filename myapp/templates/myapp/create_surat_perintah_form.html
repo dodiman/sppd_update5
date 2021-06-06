@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+
+{% block content %}
+<h2>halaman tambah data surat pertintah</h2>
+<form method="POST">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">simpan</button>
+</form>
+{% endblock %}

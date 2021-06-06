@@ -1,0 +1,33 @@
+{% extends "master.html" %}
+
+{% block content %}
+<h2>halaman show surat perintah</h2>
+<h2>data pegawai</h2>
+
+<h2>my detail</h2>
+Nomor Surat Perintah: {{ suratperintah.nomor }}
+<hr />
+<br />
+Nama Penanggung jawab: {{ suratperintah_pegawai.nama }}
+<br />
+
+
+<hr />
+Pengikut / pelaksana :
+<br />
+{% for value in pelaksana %}
+	{{ value.nama }} <br />
+{% endfor %}
+<hr />
+Untuk / Uraian :
+{{ suratperintah.uraian }}
+<hr />
+Di Tetapkan / Tanggal :
+{{ suratperintah.tanggal }}
+<hr />
+Jabatan / mengetahui : {{ suratperintah_pegawai.jabatan }}
+<br />
+<br />
+<br />
+<strong>{{ suratperintah_pegawai.nama }}</strong>
+{% endblock %}

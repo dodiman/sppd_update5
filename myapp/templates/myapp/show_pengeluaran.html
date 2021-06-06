@@ -1,0 +1,73 @@
+{% extends "master.html" %}
+
+{% block content %}
+<h2>halaman show Pengeluaran</h2>
+
+<h2>my detail</h2>
+Terima Dari: {{ pengeluaran.sumber_dana }}
+<hr />
+rincian harga: {{ pengeluaran.sumber_dana }}
+Total: {{ total_rincian }}
+<hr />
+<hr />
+<hr />
+<hr />
+<hr />
+<hr />
+<hr />
+{{ rincian }}
+{% for value in rincian %}
+{{ value.harga}}
+{% endfor %}
+<br />
+Nama Pejabat: {{ sppd.surat_perintah.penanggung_jawab.jabatan }}
+<br />
+Nama Penanggung jawab: {{ sppd.surat_perintah.penanggung_jawab.nama }}
+<br />
+
+Pangkat : {{ sppd.surat_perintah.penanggung_jawab.pangkat }}
+<br />
+
+Golongan : {{ sppd.surat_perintah.penanggung_jawab.golongan }}
+<br />
+
+Maksud Perjalanan : {{ sppd.perjalanan }}
+<br />
+
+Tempat Berangkat : {{ sppd.tempat_berangkat }}
+<br />
+Tempat Tujuan : {{ sppd.tempat_tujuan }}
+<br />
+
+Lama Perjalanan : 
+<br />
+Tanggal Berangkat : {{ sppd.tanggal_berangkat }}
+<br />
+Tangga Kembali : {{ sppd.tanggal_kembali }}
+<br />
+
+Alat Angkutan yang digunakan : umum / dinas
+<br />
+
+Pengikut / Pelaksana: 
+<br />
+{% for value in pelaksana %}
+	{{ value.nama }} <br />
+{% endfor %}
+
+
+<hr />
+Instansi : ---
+<br />
+Keterangan : {{ sppd.keterangan }}
+<br />
+<hr />
+Di Tetapkan / Tanggal :
+{{ sppd.surat_perintah.tanggal }}
+<hr />
+Jabatan / mengetahui : {{ sppd.surat_perintah.penanggung_jawab.jabatan }}
+<br />
+<br />
+<br />
+<strong>{{ sppd.surat_perintah.penanggung_jawab.nama }}</strong>
+{% endblock %}
