@@ -20,9 +20,10 @@
                     <table width="90%" border="0">
                         <tbody>
                         <tr>
-                          <td width="266" rowspan="4"><img src="{% static 'images/logo/pemda.png' %}" width="104" height="100" alt=""/></td>
+                          <td width="266" rowspan="4"><img src="{{ suratperintah.sppd.instansi.logo.url }}" width="104" height="100" alt=""/></td>
                           <td width="1100" align="center"><strong>PEMERINTAH PROVINSI PAPUA BARAT</strong></td>
                         </tr>
+                        {% if not sppd == None %}
                         <tr>
                             <td align="center"><strong>{{ suratperintah.sppd.instansi.nama }}</strong></td>
                         </tr>
@@ -32,6 +33,7 @@
                         <tr>
                             <td align="center">{{ suratperintah.sppd.instansi.email }}, {{ suratperintah.sppd.instansi.situs }}</td>
                         </tr>
+                        {% endif %}
                         </tbody>
                       </table>
                 </div>
@@ -80,7 +82,7 @@
                           <td colspan="4" align="center"><strong>MEMERINTAHKAN</strong></td>
                         </tr>
                         <tr>
-                          <td colspan="4"><strong>Kepada :</strong></td>
+                          <td colspan="4"><strong>Kepada :  </strong></td>
                         </tr>
                         <tr>
                           <td>&nbsp;</td>
@@ -88,6 +90,8 @@
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                         </tr>
+
+                        
                         {% for value in pelaksana %}
                           <tr>
                             <td>{{ forloop.counter }}</td>
@@ -114,6 +118,7 @@
                             <td>&nbsp;</td>
                           </tr>
                         {% endfor %}
+                        
                       </tbody>
                     </table>
                 </div>

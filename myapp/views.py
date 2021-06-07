@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+from django.http import HttpResponse
 
 from django.db.models import Sum, Avg
+from django.core.exceptions import ObjectDoesNotExist
 
 # manipulasi date
 from datetime import date
@@ -40,8 +42,22 @@ def createSuratPerintah(request):
 def showSuratePerintah(request, pk):
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	suratperintah_pegawai = suratperintah.penanggung_jawab
-	sppd = Sppd.objects.get(surat_perintah=suratperintah)
-	pelaksana = sppd.pengikut.all()
+
+	try:
+		sppd = Sppd.objects.get(surat_perintah=suratperintah)
+		pelaksana = sppd.pengikut.all()
+		# sppd.suratperintah
+	except ObjectDoesNotExist:
+		sppd = None
+		pelaksana = None
+	
+	# try:
+	# 	sppd = Sppd.objects.get(surat_perintah=suratperintah)
+	# 	# pelaksana = sppd.pengikut.all()
+	# except Sppd.DoesNotExist:
+	# 	spdd = None
+	# 	# pelaksana = None
+
 	# instansi = Instansi.objects.get(id=0)
 
 	context = {
@@ -50,6 +66,7 @@ def showSuratePerintah(request, pk):
 		'pelaksana': pelaksana,
 		'suratperintah_pegawai': suratperintah_pegawai,
 	}
+	# return HttpResponse(sppd)
 	return render(request, 'myapp/show_surat_perintah.html', context)
 
 @login_required(login_url='login')

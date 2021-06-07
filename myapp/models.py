@@ -18,24 +18,32 @@ class Biaya(models.Model):
 
 class Pegawai(models.Model):
 	GOLONGAN = (
-			('2A', '2A'),
-			('2B', '2B'),
-			('2C', '2C'),
-			('2D', '2D'),
-			('3A', '3A'),
-			('3B', '3B'),
-			('3C', '3C'),
-			('3D', '3D'),
-			('4A', '4A'),
+			('IIA', 'IIA'),
+			('IIB', 'IIB'),
+			('IIC', 'IIC'),
+			('IID', 'IID'),
+			('IIIA', 'IIIA'),
+			('IIIB', 'IIIB'),
+			('IIIC', 'IIIC'),
+			('IIID', 'IIID'),
+			('IVA', 'IVA'),
+			('IVB', 'IVB'),
+			('IVC', 'IVC'),
+			)
+
+	STATUS_PEGAWAI = (
+			('PNS', 'PNS'),
+			('PPPK', 'PPPK'),
+			('HONORER', 'HONORER'),
 			)
 
 	nip = models.CharField(max_length=200, null=True)
 	nama = models.CharField(max_length=200, null=True)
-	skpd = models.CharField(max_length=200, null=True)
+	# skpd = models.CharField(max_length=200, null=True)
 	pangkat = models.CharField(max_length=200, null=True)
 	golongan = models.CharField(max_length=200, null=True, choices=GOLONGAN)
 	jabatan = models.CharField(max_length=200, null=True)
-	status = models.CharField(max_length=200, null=True)
+	status_pegawai = models.CharField(max_length=200, null=True ,choices=STATUS_PEGAWAI)
 	created_at = models.DateTimeField(auto_now_add=True, null=True)
 	updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -48,8 +56,8 @@ class Instansi(models.Model):
 	telepon = models.CharField(max_length=200, null=True)
 	email = models.CharField(max_length=200, null=True)
 	situs = models.CharField(max_length=200, null=True)
-	logo = models.CharField(max_length=200, null=True)
-	status = models.CharField(max_length=200, null=True)
+	logo = models.ImageField(default="pemda.png", null=True, blank=True)
+	# status = models.CharField(max_length=200, null=True)
 	created_at = models.DateTimeField(auto_now_add=True, null=True)
 	updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -100,7 +108,7 @@ class Sppd(models.Model):
 class Rincian(models.Model):
 	uraian = models.CharField(max_length=200, null=True)
 	biaya = models.OneToOneField(Biaya, null=True, on_delete=models.CASCADE)
-	qty = models.PositiveIntegerField()
+	Kuantitas = models.PositiveIntegerField()
 	satuan = models.CharField(max_length=200, null=True)
 	harga = models.IntegerField()
 	created_at = models.DateTimeField(auto_now_add=True, null=True)
