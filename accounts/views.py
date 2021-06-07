@@ -59,7 +59,7 @@ def logoutUser(request):
 	return redirect('login')
 
 @login_required(login_url='login')
-@admin_only
+# @admin_only
 def home(request):
 	context = {}  # saya yang buat
 	# orders = Order.objects.all()
@@ -75,7 +75,8 @@ def home(request):
 	# 'total_orders':total_orders,'delivered':delivered,
 	# 'pending':pending }
 
-	return render(request, 'accounts/dashboard2.html', context)
+	# return render(request, 'accounts/dashboard2.html', context)
+	return redirect('myapp_index')
 
 @login_required(login_url='login')
 def userPage(request):
@@ -85,7 +86,8 @@ def userPage(request):
 		'orders': orders
 	}
 
-	return render(request, 'accounts/user2.html', context)
+	# return render(request, 'accounts/user2.html', context)
+	return redirect('myapp_index')
 
 
 # @login_required(login_url='login')

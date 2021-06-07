@@ -11,7 +11,7 @@ from datetime import date
 @login_required(login_url='login')
 def index(request):
 	context = {}
-	return render(request, 'myapp/index.html', context)
+	return render(request, 'myapp/dashboard.html', context)
 
 @login_required(login_url='login')
 def surat_perintah(request):
@@ -102,6 +102,19 @@ def showPengeluaran(request, pk):
 		# 'suratperintah_pegawai': suratperintah_pegawai,
 	}
 	return render(request, 'myapp/show_pengeluaran.html', context)
+
+@login_required(login_url='login')
+def showRincian(request, pk):
+	pengeluaran = Pengeluaran.objects.get(id=pk)
+	rincian = pengeluaran.rincian.all()
+	total_rincian = pengeluaran.rincian.aggregate(Sum('harga'))
+	context = {
+		'pengeluaran': pengeluaran,
+		'rincian': rincian,
+		'total_rincian': total_rincian['harga__sum'],
+	}
+	return render(request, 'myapp/show_rincian.html', context)
+
 
 @login_required(login_url='login')
 def showLaporan(request, pk):

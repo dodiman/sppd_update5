@@ -1,0 +1,33 @@
+{% extends "master.html" %}
+
+{% block content %}
+<h2>halaman Laporan</h2>
+{% for valuenya in pengeluaran %}
+	{{ valuenya }}
+{% endfor %}
+
+<h2>-----------</h2>
+{{ pengeluaran. }}
+<table border="1">
+	<thead>
+		<tr>
+			<td>Nomor</td>
+			<td>SPPD</td>
+			<td>Tanggal</td>
+			<td>Tujuan</td>
+			<td>disini</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for value in pengeluaran %}
+		<tr>
+			<td>{{ value.nomor_bukti_pengeluaran }}</td>
+			<td>{{ value.sppd }}</td>
+			<td>{{ value.tanggal }}</td>
+			<td>{{ value.keperluan }}</td>
+			<td>{{ value.total_nya.harga__sum }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

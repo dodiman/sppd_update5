@@ -1,60 +1,189 @@
-{% extends "master.html" %}
+{% extends "base.html" %}
+
+{% block style %}
+{% load static %}
+<style>
+      .invoice {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 100%;
+      }
+    </style>
+{% endblock %}
 
 {% block content %}
-<h2>halaman show SPPD</h2>
-{{ lama_perjalanan.days }}
-<h2>my detail</h2>
-Nomor SPPD: {{ sppd.nomor }}
-<hr />
-<br />
-Nama Pejabat: {{ sppd.surat_perintah.penanggung_jawab.jabatan }}
-<br />
-Nama Penanggung jawab: {{ sppd.surat_perintah.penanggung_jawab.nama }}
-<br />
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <div class="invoice">
+            <div class="" style="position: relative;">
+                <div>
+                    <table width="90%" border="0">
+                        <tbody>
+                            <tr>
+                              <td width="266" rowspan="6"><img src="{% static 'images/logo/pemda.png' %}" width="104" height="100" alt=""/></td>
+                              <td width="1100" align="center"><strong>PEMERINTAH PROVINSI PAPUA BARAT</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><strong>{{ sppd.instansi.nama }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center">{{ sppd.instansi.alamat }}, {{ sppd.instansi.telepon }} </td>
+                            </tr>
+                            <tr>
+                                <td align="center">{{ sppd.instansi.email }}, {{ sppd.instansi.situs }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <hr style="border-width:5px;  
+                border-top-style:double;">
+                <table width="110%" border="0">
+                  <tbody>
+                            <tr>
+                              <td align="center"><strong><u>SURAT PERINTAH PERJALANAN DINAS</u></strong></td>
+                            </tr>
+                            <tr>
+                              <td align="center"><strong>Nomor: {{ sppd.nomor }}</strong></td>
+                            </tr>
+                    
+                  </tbody>
+                </table>
+                <br /> <br />
+                </div>
+                <div>
+                    <table width="100%" border="1">
+                      <tbody>
+                        <tr>
+                          <td width="16"> 1</td>
+                          <td width="295">Pejabat berwanang yang memberi perintah </td>
+                          <td colspan="2">{{ sppd.surat_perintah.penanggung_jawab.jabatan |title }}</td>
+                          </tr>
+                        <tr>
+                          <td>2 </td>
+                          <td>Nama pegawai yang diperintah </td>
+                          <td colspan="2">{{ sppd.surat_perintah.penanggung_jawab.nama |title }}</td>
+                          </tr>
+                        <tr>
+                          <td rowspan="2">3 </td>
+                          <td>a. Pangkat dan Golongan </td>
+                          <td colspan="2">a. {{ sppd.surat_perintah.penanggung_jawab.pangkat }}, {{ sppd.surat_perintah.penanggung_jawab.golongan }} </td>
+                          </tr>
+                        <tr>
+                          <td>b. Jabatan </td>
+                          <td colspan="2">b. {{ sppd.surat_perintah.penanggung_jawab.jabatan |title }} </td>
+                          </tr>
+                        <tr>
+                          <td>4 </td>
+                          <td>Maksud Perjalanan </td>
+                          <td colspan="2">{{ sppd.perjalanan }}</td>
+                          </tr>
+                        <tr>
+                          <td>5 </td>
+                          <td> a. Tempat berangkat<br>
+                            b. Tempat tujuan<br></td>
+                          <td colspan="2"> a. {{ sppd.tempat_berangkat }}<br>
+                            b. {{ sppd.tempat_tujuan }}<br></td>
+                          </tr>
+                        <tr>
+                          <td> 6</td>
+                          <td>
+                               
+                              a. Tanggal Keberangkatan <br>
+                              b. Tanggal harus kembali
+                            </td>
+                          <td colspan="2">
+                            a. {{ sppd.tanggal_berangkat }}<br>
+                            b. {{ sppd.tanggal_kembali }}<br></td>
+                          </tr>
+                        <tr>
+                          <td>7 </td>
+                          <td>Alat anguktan yang dipergunakan </td>
+                          <td colspan="2">Dinas / Umum </td>
+                          </tr>
+                        <tr>
+                          <td>8 </td>
+                          <td>Pengikut : Nama </td>
+                          <td width="67">NIP </td>
+                          <td width="468">Jabatan </td>
+                        </tr>
+                        
+                          {% for value in pelaksana %}
+                          <tr>
+                              <td>&nbsp;</td>
+                              <td>{{ forloop.counter }}. 
+                                  {{ value.nama |title }}
 
-Pangkat : {{ sppd.surat_perintah.penanggung_jawab.pangkat }}
-<br />
+                                </td>
+                              <td>{{ value.nip }}</td>
+                              <td>{{ value.jabatan |title }}</td>
+                               
 
-Golongan : {{ sppd.surat_perintah.penanggung_jawab.golongan }}
-<br />
+                          </tr>
+                         {% endfor %}
+                        
+                        <tr>
+                          <td> 9</td>
+                          <td>Pembebasan<br>
+                            a. Instansi<br>
+                            b. Mata Anggaran<br></td>
+                          <td colspan="2">a. Dinas Komunikasi, Informatika, Persandian dan Statistik Manokwari<br>
+                            b. Biaya Perjalanan Dinas Tahun 2021<br></td>
+                          </tr>
+                        <tr>
+                          <td> 10</td>
+                          <td>Keterangan Lain-lain</td>
+                          <td colspan="2">{{ sppd.keterangan }}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table width="100%" height="276" border="0">
+                      <tbody>
+                        <tr>
+                          <td width="319" height="18">&nbsp;</td>
+                          <td width="74">&nbsp;</td>
+                          <td width="143">Dikeluarkan Di </td>
+                          <td width="158">: Manokwari </td>
+                        </tr>
+                        <tr>
+                          <td height="18">&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>Pada Tanggal </td>
+                          <td>: {{ sppd.surat_perintah.tanggal }}</td>
+                        </tr>
+                        <tr>
+                          <td height="18" colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td height="18">&nbsp;</td>
+                          <td colspan="3" align="center"><strong>{{ sppd.surat_perintah.penanggung_jawab.jabatan }}</strong></td>
+                        </tr>
+                        <tr>
+                          <td height="76" colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td height="18">&nbsp;</td>
+                          <td colspan="3" align="center"><strong><u>{{ sppd.surat_perintah.penanggung_jawab.nama }}</u></strong></td>
+                        </tr>
+                        <tr>
+                          <td height="18">&nbsp;</td>
+                          <td colspan="3" align="center">{{ sppd.surat_perintah.penanggung_jawab.pangkat }}/{{ sppd.surat_perintah.penanggung_jawab.golongan }}</td>
+                        </tr>
+                        <tr>
+                          <td height="18">&nbsp;</td>
+                          <td colspan="3" align="center">NIP. {{ sppd.surat_perintah.penanggung_jawab.nip }} </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>                             
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->
 
-Maksud Perjalanan : {{ sppd.perjalanan }}
-<br />
-
-Tempat Berangkat : {{ sppd.tempat_berangkat }}
-<br />
-Tempat Tujuan : {{ sppd.tempat_tujuan }}
-<br />
-
-Lama Perjalanan : 
-<br />
-Tanggal Berangkat : {{ sppd.tanggal_berangkat }}
-<br />
-Tangga Kembali : {{ sppd.tanggal_kembali }}
-<br />
-
-Alat Angkutan yang digunakan : umum / dinas
-<br />
-
-Pengikut / Pelaksana: 
-<br />
-{% for value in pelaksana %}
-	{{ value.nama }} <br />
-{% endfor %}
 
 
-<hr />
-Instansi : ---
-<br />
-Keterangan : {{ sppd.keterangan }}
-<br />
-<hr />
-Di Tetapkan / Tanggal :
-{{ sppd.surat_perintah.tanggal }}
-<hr />
-Jabatan / mengetahui : {{ sppd.surat_perintah.penanggung_jawab.jabatan }}
-<br />
-<br />
-<br />
-<strong>{{ sppd.surat_perintah.penanggung_jawab.nama }}</strong>
 {% endblock %}

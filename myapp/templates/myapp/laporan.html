@@ -1,6 +1,67 @@
-{% extends "master.html" %}
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+      .invoice {
+        font-family: 'Times New Roman', Times, serif;
+      }
+    </style>
+{% endblock %}
 
 {% block content %}
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <div class="invoice">
+            <div class="" style="position: relative;">
+                <div>
+                    <table width="100%" border="0">
+                      <tbody>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td align="center">Laporan Anggaran Perjalanan Dinas</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <!-- <td align="center">data tanggal</td> -->
+                          <td>&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <table width="100%" border="1">
+                      <tbody>
+                        <tr>
+                          <td>No</td>
+                          <td>Tanggal</td>
+                          <td>No SPPD</td>
+                          <td>Tujuan</td>
+                          <td>Jumlah Dana</td>
+                        </tr>
+                        {% for value in pengeluaran %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ value.sppd.tanggal_berangkat }}</td>
+                                <td>{{ value.sppd.nomor }}</td>
+                                <td>{{ value.keperluan }}</td>
+                                <td>Rp {{ value.total_nya.harga__sum }}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>                                       
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->
+
+
 <h2>halaman Laporan</h2>
 {% for valuenya in pengeluaran %}
 	{{ valuenya }}
@@ -22,8 +83,8 @@
 		{% for value in pengeluaran %}
 		<tr>
 			<td>{{ value.nomor_bukti_pengeluaran }}</td>
-			<td>{{ value.sppd }}</td>
-			<td>{{ value.tanggal }}</td>
+			<td>{{ value.sppd.tanggal }}</td>
+			<td>{{ value.sppd.nomor }}</td>
 			<td>{{ value.keperluan }}</td>
 			<td>{{ value.total_nya.harga__sum }}</td>
 		</tr>

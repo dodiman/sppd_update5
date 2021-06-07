@@ -17,6 +17,7 @@ urlpatterns = [
 
 	path('pengeluaran', views.pengeluaran, name='myapp_pengeluaran'),
 	path('show_pengeluaran/<str:pk>/', views.showPengeluaran, name="myapp_show_pengeluaran"),
+	path('show_rincian/<str:pk>/', views.showRincian, name="show_rincian"),
 
 	path('pegawai', views.pegawai, name='myapp_pegawai'),
 	path('pegawai', views.pegawai, name='myapp_pegawai'),

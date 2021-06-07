@@ -1,73 +1,170 @@
-{% extends "master.html" %}
+{% extends "base.html" %}
+
+{% block style %}
+{% load static %}
+<style>
+      .invoice {
+        font-family: 'Times New Roman', Times, serif;
+      }
+    </style>
+{% endblock %}
 
 {% block content %}
-<h2>halaman show Pengeluaran</h2>
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <div class="invoice">
+            <div class="" style="position: relative;">
+                <div>
+                    <table width="90%" border="0">
+                        <tbody>
+                            <tr>
+                              <td width="266" rowspan="4"><img src="{% static 'images/logo/pemda.png' %}" width="104" height="100" alt=""/></td>
+                              <td width="1100" align="center"><strong>PEMERINTAH DAERAH PROVINSI PAPUA BARAT</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><strong>{{ pengeluaran.sppd.instansi.nama }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center">{{ pengeluaran.sppd.instansi.alamat }}, {{ pengeluaran.sppd.instansi.telepon }} </td>
+                            </tr>
+                            <tr>
+                                <td align="center">{{ pengeluaran.sppd.instansi.email }}, {{ pengeluaran.sppd.instansi.situs }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <table width="87%" border="0">
+                        <tbody>
+                            <tr>
+                            <td width="239">&nbsp;</td>
+                            <td width="715" align="center"><strong><u>KUITANSI PENGELUARAN</u></strong></td>
+                            <td width="15">&nbsp;</td>
+                            </tr>
+                            <tr>
+                            <td>&nbsp;</td>
+                            <td align="center"><strong>Nomor: {{ pengeluaran.nomor_bukti_pengeluaran }}</strong></td>
+                            <td>&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <table width="100%" border="0">
+                    <tbody>
+                        <tr>
+                        <td width="144">&nbsp;</td>
+                        <td width="202">Terima dari</td>
+                        <td width="8">:</td>
+                        <td width="625">{{ pengeluaran.sumber_dana |title }}</td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>Uang Sejumlah</td>
+                        <td>:</td>
+                        <td>Rp {{ total_rincian }}</td>
+                        </tr>
+                        <!-- <tr>
+                        <td>&nbsp;</td>
+                        <td>Terbilang</td>
+                        <td>:</td>
+                        <td></td>
+                        </tr> -->
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>Untuk Keperluan</td>
+                        <td>:</td>
+                        <td>{{ pengeluaran.keperluan }}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div hidden="">
+                    <table width="100%" border="0">
+                    <tbody>
+                        <tr>
+                        <td width="344">&nbsp;</td>
+                        <td width="122">Jenis Belanja</td>
+                        <td width="5">:</td>
+                        <td width="409"></td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>Obyek Belanja</td>
+                        <td>:</td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>Rincian Belanja</td>
+                        <td>:</td>
+                        <td></td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table width="100%" border="0">
+                    <tbody>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td align="center">Mengatahui / Menyetujui </td>
+                        <td>&nbsp;</td>
+                        <td align="center">Manokwari, {{ pengeluaran.keperluan }} </td>
+                        </tr>
+                        <tr>
+                        <td align="center">Kepala Dinas Komunikasi </td>
+                        <td align="center">Bendahara Pengeluaran</td>
+                        <td align="center">Yang Menerima </td>
+                        </tr>
+                        <tr>
+                        <td align="center">Informatika dan Statistik </td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td align="center">{{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nama }} </td>
+                        <td align="center">MEISARI, SE </td>
+                        <td align="center">{{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nama }} </td>
+                        </tr>
+                        <tr>
+                        <td align="center">NIP {{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nip }} </td>
+                        <td align="center">NIP 198405072010012012 </td>
+                        <td align="center">NIP {{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nip }} </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>                 
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->
 
-<h2>my detail</h2>
-Terima Dari: {{ pengeluaran.sumber_dana }}
-<hr />
-rincian harga: {{ pengeluaran.sumber_dana }}
-Total: {{ total_rincian }}
-<hr />
-<hr />
-<hr />
-<hr />
-<hr />
-<hr />
-<hr />
-{{ rincian }}
-{% for value in rincian %}
-{{ value.harga}}
-{% endfor %}
-<br />
-Nama Pejabat: {{ sppd.surat_perintah.penanggung_jawab.jabatan }}
-<br />
-Nama Penanggung jawab: {{ sppd.surat_perintah.penanggung_jawab.nama }}
-<br />
-
-Pangkat : {{ sppd.surat_perintah.penanggung_jawab.pangkat }}
-<br />
-
-Golongan : {{ sppd.surat_perintah.penanggung_jawab.golongan }}
-<br />
-
-Maksud Perjalanan : {{ sppd.perjalanan }}
-<br />
-
-Tempat Berangkat : {{ sppd.tempat_berangkat }}
-<br />
-Tempat Tujuan : {{ sppd.tempat_tujuan }}
-<br />
-
-Lama Perjalanan : 
-<br />
-Tanggal Berangkat : {{ sppd.tanggal_berangkat }}
-<br />
-Tangga Kembali : {{ sppd.tanggal_kembali }}
-<br />
-
-Alat Angkutan yang digunakan : umum / dinas
-<br />
-
-Pengikut / Pelaksana: 
-<br />
-{% for value in pelaksana %}
-	{{ value.nama }} <br />
-{% endfor %}
 
 
-<hr />
-Instansi : ---
-<br />
-Keterangan : {{ sppd.keterangan }}
-<br />
-<hr />
-Di Tetapkan / Tanggal :
-{{ sppd.surat_perintah.tanggal }}
-<hr />
-Jabatan / mengetahui : {{ sppd.surat_perintah.penanggung_jawab.jabatan }}
-<br />
-<br />
-<br />
-<strong>{{ sppd.surat_perintah.penanggung_jawab.nama }}</strong>
 {% endblock %}

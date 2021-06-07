@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block style %}
+{% load static %}
+<style>
+      .invoice {
+        font-family: 'Times New Roman', Times, serif;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <div class="invoice">
+            <div class="" style="position: relative;">
+                <div>
+                    <table width="71%" border="0">
+                        <tbody>
+                        <tr>
+                            <td colspan="3">PERINCIAN BIAYA PERJALANAN DINAS </td>
+                        </tr>
+                        <tr>
+                            <td width="151">Lampiran SPPD No </td>
+                            <td width="19">: </td>
+                            <td width="531">{{ pengeluaran.sppd.nomor }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal </td>
+                            <td> :</td>
+                            <td>{{ pengeluaran.sppd.tanggal_berangkat }} s/d  {{ pengeluaran.sppd.tanggal_kembali }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table width="92%" border="1">
+                        <tbody>
+                        <tr>
+                            <td width="">No </td>
+                            <td colspan="3"  align="center">Perincian Biaya </td>
+                            <!-- <td width="">Jumlah </td> -->
+                            <!-- <td width="">Jumlah </td> -->
+                            <td colspan="3" width="" align="center">Jumlah </td>
+                        </tr>
+                        
+                        <!-- <tr>
+                            <td> Nomor.</td>
+                            <td colspan="4">rincian.biaya.nama </td>
+                            <td> </td>
+                            <td rowspan=""></td>
+                        </tr> -->
+                            {% for detail in rincian %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td width="">{{ detail.uraian }} </td>
+                                <td width="">{{ detail.qty }} </td>
+                                <td width=""> {{ detail.satuan }}</td>
+                                <td align="center">Rp {{ detail.harga }} </td>
+                            </tr>
+                            {% endfor %}
+                        
+                        <tr>
+                            <td colspan="4"  align="center">Jumlah Total</td>
+                            <td align="center">Rp {{ total_rincian }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            
+                </div>
+
+
+                
+                
+                <div>
+                    <p>Keterangan : {{ pengeluaran.keterangan }}</p>
+                </div>
+                <br>
+                <div>
+                    <table width="77%" border="0">
+                        <tbody>
+                        <tr>
+                            <td width="285">Telah dibayarkan uang sejumlah : </td>
+                            <td width="152">&nbsp;</td>
+                            <td width="248"> Telah diterima uang sejumlah</td>
+                        </tr>
+                        <tr>
+                            <td> Rp {{ total_rincian }}</td>
+                            <td>&nbsp;</td>
+                            <td> Rp {{ total_rincian }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <table width="77%" border="0">
+                        <tbody>
+                        <tr>
+                            <td width="251">Bendahara Pengeluaran </td>
+                            <td width="253">&nbsp;</td>
+                            <td width="253"> Yang Menerima</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td> MEISARI, SE</td>
+                            <td>&nbsp;</td>
+                            <td>{{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nama }}</td>
+                        </tr>
+                        <tr>
+                            <td>NIP 198405072010012012 </td>
+                            <td>&nbsp;</td>
+                            <td>NIP {{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nip }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <table width="86%" border="0">
+                        <tbody>
+                        <tr>
+                            <td width="510">&nbsp;</td>
+                            <td width="332" align="center">Mengetahui / Menyetujui : </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td align="center">{{ pengeluaran.sppd.surat_perintah.penanggung_jawab.jabatan }} </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td align="center">{{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nama }}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td align="center">NIP {{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nip }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>               
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->
+
+
+
+{% endblock %}
