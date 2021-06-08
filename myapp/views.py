@@ -9,6 +9,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # manipulasi date
 from datetime import date
+from django.db.models.functions import TruncMonth, TruncDate, TruncDay, TruncHour, TruncMinute, TruncSecond
+from django.db.models import Count
 
 @login_required(login_url='login')
 def index(request):
@@ -95,7 +97,7 @@ def showSppd(request, pk):
 def showPengeluaran(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
-	total_rincian = pengeluaran.rincian.aggregate(Sum('harga'))
+	total_rincian = pengeluaran.rincian.aggregate(Sum('jumlahnya'))
 	# total_rincian = pengeluaran.aggregate(sum('harga'))
 
 	# sppd = Sppd.objects.get(id=pk)
@@ -112,7 +114,7 @@ def showPengeluaran(request, pk):
 	context = {
 		'pengeluaran': pengeluaran,
 		'rincian': rincian,
-		'total_rincian': total_rincian['harga__sum'],
+		'total_rincian': total_rincian['jumlahnya__sum'],
 		# 'lama_perjalanan' : lama_perjalanan,
 		# 'pelaksana': pelaksana,
 		# 'suratperintah': suratperintah,
@@ -124,11 +126,17 @@ def showPengeluaran(request, pk):
 def showRincian(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
-	total_rincian = pengeluaran.rincian.aggregate(Sum('harga'))
+	total_rincian = pengeluaran.rincian.aggregate(Sum('jumlahnya'))
+
+	# try:
+	# 	sppd2 = pengeluaran.sppd
+	# except ObjectDoesNotExist:
+	# 	sppd2 = None
+
 	context = {
 		'pengeluaran': pengeluaran,
 		'rincian': rincian,
-		'total_rincian': total_rincian['harga__sum'],
+		'total_rincian': total_rincian['jumlahnya__sum'],
 	}
 	return render(request, 'myapp/show_rincian.html', context)
 
@@ -137,7 +145,7 @@ def showRincian(request, pk):
 def showLaporan(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
-	total_rincian = pengeluaran.rincian.aggregate(Sum('harga'))
+	total_rincian = pengeluaran.rincian.aggregate(Sum('jumlahnya'))
 	# total_rincian = pengeluaran.aggregate(sum('harga'))
 
 	# sppd = Sppd.objects.get(id=pk)
@@ -154,7 +162,7 @@ def showLaporan(request, pk):
 	context = {
 		'pengeluaran': pengeluaran,
 		'rincian': rincian,
-		'total_rincian': total_rincian['harga__sum'],
+		'total_rincian': total_rincian['jumlahnya__sum'],
 		# 'lama_perjalanan' : lama_perjalanan,
 		# 'pelaksana': pelaksana,
 		# 'suratperintah': suratperintah,

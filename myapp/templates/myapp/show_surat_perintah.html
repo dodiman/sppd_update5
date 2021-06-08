@@ -43,7 +43,7 @@
                     <table width="100%" border="0">
                       <tbody>
                         <tr>
-                          <td colspan="4" align="center"><strong><u>SURAT PERINTAH</u></strong></td>
+                          <td colspan="4" align="center"><strong><u>SURAT PERINTAH TUGAS</u></strong></td>
                         </tr>
                         <tr>
                           <td colspan="4" align="center">Nomor : {{ suratperintah.nomor }}</td>
@@ -165,7 +165,7 @@
                           <td height="18">&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>Pada Tanggal </td>
-                          <td>: {{ suratperintah.tanggal }}</td>
+                          <td>: {{ suratperintah.tanggal |date:"d M, Y" }}</td>
                         </tr>
                         <tr>
                           <td height="18" colspan="4">&nbsp;</td>

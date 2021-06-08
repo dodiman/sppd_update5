@@ -71,7 +71,7 @@
                             	<tr>
                             		<td>{{ value.id }}</td>
                             		<td>{{ value.nomor }}</td>
-                            		<td>{{ value.tanggal }}</td>
+                            		<td>{{ value.tanggal |date:"d M, Y" }}</td>
                             		<td><a href="{% url 'myapp_show_surat_perintah' value.id %} " class="btn blue btn-outline" >Lihat</a> </td>
                             	</tr>
                             	{% endfor %}

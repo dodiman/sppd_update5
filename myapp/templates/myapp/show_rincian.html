@@ -30,7 +30,7 @@
                         <tr>
                             <td>Tanggal </td>
                             <td> :</td>
-                            <td>{{ pengeluaran.sppd.tanggal_berangkat }} s/d  {{ pengeluaran.sppd.tanggal_kembali }}</td>
+                            <td>{{ pengeluaran.sppd.tanggal_berangkat |date:"d M, Y" }} s/d  {{ pengeluaran.sppd.tanggal_kembali |date:"d M, Y" }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -40,10 +40,10 @@
                         <tbody>
                         <tr>
                             <td width="">No </td>
-                            <td colspan="3"  align="center">Perincian Biaya </td>
+                            <td colspan="4"  align="center">Perincian Biaya </td>
                             <!-- <td width="">Jumlah </td> -->
                             <!-- <td width="">Jumlah </td> -->
-                            <td colspan="3" width="" align="center">Jumlah </td>
+                            <td colspan="1" width="" align="center">Jumlah </td>
                         </tr>
                         
                         <!-- <tr>
@@ -56,14 +56,15 @@
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td width="">{{ detail.uraian }} </td>
-                                <td width="">{{ detail.qty }} </td>
-                                <td width=""> {{ detail.satuan }}</td>
-                                <td align="center">Rp {{ detail.harga }} </td>
+                                <td width="">{{ detail.kuantitas }} </td>
+                                <td width="">{{ detail.satuan }} </td>
+                                <td width=""> {{ detail.harga }}</td>
+                                <td align="center">Rp {{ detail.jumlahnya }} </td>
                             </tr>
                             {% endfor %}
                         
                         <tr>
-                            <td colspan="4"  align="center">Jumlah Total</td>
+                            <td colspan="5"  align="center">Jumlah Total</td>
                             <td align="center">Rp {{ total_rincian }} </td>
                         </tr>
                         </tbody>

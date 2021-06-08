@@ -21,7 +21,7 @@
                     <table width="90%" border="0">
                         <tbody>
                             <tr>
-                              <td width="266" rowspan="6"><img src="{% static 'images/logo/pemda.png' %}" width="104" height="100" alt=""/></td>
+                              <td width="266" rowspan="6"><img src="{{ sppd.instansi.logo.url }}" width="104" height="100" alt=""/></td>
                               <td width="1100" align="center"><strong>PEMERINTAH PROVINSI PAPUA BARAT</strong></td>
                             </tr>
                             <tr>
@@ -75,7 +75,7 @@
                         <tr>
                           <td>4 </td>
                           <td>Maksud Perjalanan </td>
-                          <td colspan="2">{{ sppd.perjalanan }}</td>
+                          <td colspan="2">{{ sppd.maksud_perjalanan }}</td>
                           </tr>
                         <tr>
                           <td>5 </td>
@@ -92,8 +92,8 @@
                               b. Tanggal harus kembali
                             </td>
                           <td colspan="2">
-                            a. {{ sppd.tanggal_berangkat }}<br>
-                            b. {{ sppd.tanggal_kembali }}<br></td>
+                            a. {{ sppd.tanggal_berangkat |date:"d M, Y" }}<br>
+                            b. {{ sppd.tanggal_kembali |date:"d M, Y" }}<br></td>
                           </tr>
                         <tr>
                           <td>7 </td>
@@ -150,7 +150,7 @@
                           <td height="18">&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>Pada Tanggal </td>
-                          <td>: {{ sppd.surat_perintah.tanggal }}</td>
+                          <td>: {{ sppd.surat_perintah.tanggal |date:"d M, Y" }}</td>
                         </tr>
                         <tr>
                           <td height="18" colspan="4">&nbsp;</td>

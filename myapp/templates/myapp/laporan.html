@@ -16,20 +16,14 @@
         <div class="invoice">
             <div class="" style="position: relative;">
                 <div>
-                    <table width="100%" border="0">
-                      <tbody>
-                        <tr>
-                          <td>&nbsp;</td>
-                          <td align="center">Laporan Anggaran Perjalanan Dinas</td>
-                          <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td>&nbsp;</td>
-                          <!-- <td align="center">data tanggal</td> -->
-                          <td>&nbsp;</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:16.0pt;line-height:107%;font-family:"Times New Roman",serif'>LAPORAN
+ANGGARAN PERJALANAN DINAS</span></b></p>
+
+
+</div>
                 </div>
                 <br>
                 <div>
@@ -45,10 +39,10 @@
                         {% for value in pengeluaran %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td>{{ value.sppd.tanggal_berangkat }}</td>
+                                <td>{{ value.sppd.tanggal_berangkat |date:"d M, Y" }}</td>
                                 <td>{{ value.sppd.nomor }}</td>
                                 <td>{{ value.keperluan }}</td>
-                                <td>Rp {{ value.total_nya.harga__sum }}</td>
+                                <td>Rp {{ value.total_nya.jumlahnya__sum }}</td>
                             </tr>
                         {% endfor %}
                       </tbody>
@@ -62,33 +56,5 @@
 <!-- END CONTENT -->
 
 
-<h2>halaman Laporan</h2>
-{% for valuenya in pengeluaran %}
-	{{ valuenya }}
-{% endfor %}
 
-<h2>-----------</h2>
-{{ pengeluaran. }}
-<table border="1">
-	<thead>
-		<tr>
-			<td>Nomor</td>
-			<td>SPPD</td>
-			<td>Tanggal</td>
-			<td>Tujuan</td>
-			<td>disini</td>
-		</tr>
-	</thead>
-	<tbody>
-		{% for value in pengeluaran %}
-		<tr>
-			<td>{{ value.nomor_bukti_pengeluaran }}</td>
-			<td>{{ value.sppd.tanggal }}</td>
-			<td>{{ value.sppd.nomor }}</td>
-			<td>{{ value.keperluan }}</td>
-			<td>{{ value.total_nya.harga__sum }}</td>
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
 {% endblock %}

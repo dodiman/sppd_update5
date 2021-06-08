@@ -76,7 +76,7 @@
                             		<td>{{ value.surat_perintah.nomor }}</td>
                             		<td>{{ value.nomor }}</td>
                             		<td>{{ value.surat_perintah.penanggung_jawab.nama }}</td>
-                            		<td>{{ value.surat_perintah.tanggal }}</td>
+                            		<td>{{ value.surat_perintah.tanggal |date:"d M, Y" }}</td>
                             		<!-- <td></td> -->
                             		<td><a href="{% url 'myapp_show_sppd' value.id %}" class="btn blue btn-outline">lihat</a></td>
                             	</tr>

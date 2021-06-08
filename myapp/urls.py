@@ -25,4 +25,5 @@ urlpatterns = [
 	# path('create_order/<str:pk>/', views.createOrder, name="create_order"),
     path('update_data_pegawai/<str:pk>/', views.updatePegawai, name="myapp_update_pegawai"),
     # path('delete_order/<str:pk>/', views.deleteOrder, name="delete_order"),
+
 ]

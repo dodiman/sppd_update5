@@ -86,7 +86,7 @@ class Surat_perintah(models.Model):
 
 class Sppd(models.Model):
 	nomor = models.CharField(max_length=200, null=True)
-	perjalanan = models.CharField(max_length=200, null=True)
+	maksud_perjalanan = models.CharField(max_length=200, null=True)
 	tempat_berangkat = models.CharField(max_length=200, null=True)
 	tempat_tujuan = models.CharField(max_length=200, null=True)
 	tanggal_berangkat = models.DateField(null=True)
@@ -108,17 +108,27 @@ class Sppd(models.Model):
 class Rincian(models.Model):
 	uraian = models.CharField(max_length=200, null=True)
 	biaya = models.OneToOneField(Biaya, null=True, on_delete=models.CASCADE)
-	Kuantitas = models.PositiveIntegerField()
+	kuantitas = models.PositiveIntegerField()
 	satuan = models.CharField(max_length=200, null=True)
 	harga = models.IntegerField()
+	jumlahnya = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True, null=True)
 	updated_at = models.DateTimeField(auto_now=True, null=True)
 
+	def save(self, *args, **kwargs):
+		self.jumlahnya = self.harga * self.kuantitas
+		super(Rincian, self).save(*args, **kwargs)
+
 	# class Meta:
 	# 	ordering = ['uraian']
+	
+	# @property
+	# def jumlahnya(self):
+	# 	return self.harga * self.kuantitas
 
 	def __str__(self):
 		return self.uraian
+
 
 
 class Pengeluaran(models.Model):
@@ -140,7 +150,8 @@ class Pengeluaran(models.Model):
 
 	@property
 	def total_nya(self):
-		return self.rincian.aggregate(Sum('harga'))
+		return self.rincian.aggregate(Sum('jumlahnya'))
+
 
 class Anggaran(models.Model):
 	
