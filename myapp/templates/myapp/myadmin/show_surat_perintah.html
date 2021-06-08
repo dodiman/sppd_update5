@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
 
 {% block style %}
 {% load static %}
@@ -23,17 +23,15 @@
                           <td width="266" rowspan="4"><img src="{{ instansi.logo.url }}" width="104" height="100" alt=""/></td>
                           <td width="1100" align="center"><strong>PEMERINTAH PROVINSI PAPUA BARAT</strong></td>
                         </tr>
-                        {% if not sppd == None %}
                         <tr>
-                            <td align="center"><strong>{{ instansi.nama }}</strong></td>
+                            <td align="center"><strong>{{ instansi }}</strong></td>
                         </tr>
                         <tr>
-                            <td align="center">{{ instansi.alamat }}, {{ instansi.telepon }} </td>
+                            <td align="center">{{ instansi.alamat }}, {{ suratperintah.sppd.instansi.telepon }} </td>
                         </tr>
                         <tr>
-                            <td align="center">{{ instansi.email }}, {{ instansi.situs }}</td>
+                            <td align="center">{{ instansi.email }}, {{ suratperintah.sppd.instansi.situs }}</td>
                         </tr>
-                        {% endif %}
                         </tbody>
                       </table>
                 </div>

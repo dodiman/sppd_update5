@@ -1,0 +1,68 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+<div class="page-content-wrapper">
+	<!-- BEGIN CONTENT BODY -->
+	<div class="page-content">
+		<!-- BEGIN PAGE HEADER-->
+		<!-- BEGIN THEME PANEL -->
+		<div class="theme-panel hidden-xs hidden-sm">
+			<div class="toggler"> </div>
+			<div class="toggler-close"> </div>
+		</div>
+		<!-- END THEME PANEL -->
+		<!-- BEGIN PAGE BAR -->
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<a href="{% url 'myapp_index_admin' %}">Home</a>
+					<i class="fa fa-circle"></i>
+				</li>
+				<li>
+					<a href="#">Tables</a>
+					<i class="fa fa-circle"></i>
+				</li>
+				<li>
+					<span>Datatables</span>
+				</li>
+			</ul>
+
+		</div>
+		<!-- END PAGE BAR -->
+		<!-- BEGIN PAGE TITLE-->
+		<h1 class="page-title"> Pegawai
+			<small>Data Table</small>
+		</h1>
+		<!-- END PAGE TITLE-->
+		<!-- END PAGE HEADER-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet light bordered">
+					<div class="portlet-title">
+						<div class="caption font-dark">
+							<i class="icon-settings font-dark"></i>
+							<span class="caption-subject bold uppercase">Data</span>
+						</div>
+                        <!-- <div class="actions">
+                            <a href="" class="btn blue btn-outline">
+                                <i class="fa fa-plus"></i> Add </a>
+                            </div> -->
+                            <div class="tools"> </div>
+                        </div>
+                        <div class="portlet-body">
+                        	<form method="post">
+                        		{% csrf_token %}
+                        		{{ form.as_p }}
+                        		<input type="submit" value="Submit">
+                        	</form>
+                        </div>
+                    </div>
+                    <!-- END EXAMPLE TABLE PORTLET-->
+                </div>
+            </div>
+        </div>
+        <!-- END CONTENT BODY -->
+    </div>
+
+{% endblock %}

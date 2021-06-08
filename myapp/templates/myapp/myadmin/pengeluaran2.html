@@ -1,0 +1,39 @@
+{% extends "master.html" %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<h2>halaman Pengeluaran</h2>
+<br />
+<h2>Data Pengeluaran</h2>
+<a href="">tambah</a>
+<br />
+<p></p>
+<hr />
+<table border="1">
+	<thead>
+		<tr>
+			<th>Nomor</th>
+			<th>actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for value in pengeluaran %}
+		<tr>
+			<td>{{ value.nomor_bukti_pengeluaran }}</td>
+			<td>
+				<a href="{% url 'myapp_show_pengeluaran' value.id %}">lihat</a> | 
+				<a href="">edit</a>  | 
+				<a href="">delete</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+	
+{% endblock %}

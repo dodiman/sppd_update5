@@ -4,17 +4,17 @@ from django.dispatch import receiver
 from django.db.models import Sum, Avg
 
 
-class Biaya(models.Model):
-	nama = models.CharField(max_length=200, null=True)
-	status = models.CharField(max_length=200, null=True)
-	created_at = models.DateTimeField(auto_now_add=True, null=True)
-	updated_at = models.DateTimeField(auto_now=True, null=True)
+# class Biaya(models.Model):
+# 	nama = models.CharField(max_length=200, null=True)
+# 	status = models.CharField(max_length=200, null=True)
+# 	created_at = models.DateTimeField(auto_now_add=True, null=True)
+# 	updated_at = models.DateTimeField(auto_now=True, null=True)
 
-	# class Meta:
-	# 	ordering = ['nama']
+# 	# class Meta:
+# 	# 	ordering = ['nama']
 
-	def __str__(self):
-		return '%s' % (self.nama)
+# 	def __str__(self):
+# 		return '%s' % (self.nama)
 
 class Pegawai(models.Model):
 	GOLONGAN = (
@@ -93,7 +93,7 @@ class Sppd(models.Model):
 	tanggal_kembali = models.DateField(null=True)
 	pengikut = models.ManyToManyField(Pegawai)
 	keterangan = models.CharField(max_length=200, null=True)
-	instansi = models.ForeignKey(Instansi, on_delete=models.CASCADE)
+	# instansi = models.ForeignKey(Instansi, on_delete=models.CASCADE)
 	surat_perintah = models.OneToOneField(Surat_perintah, null=True, on_delete=models.CASCADE)
 
 	created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -107,7 +107,7 @@ class Sppd(models.Model):
 
 class Rincian(models.Model):
 	uraian = models.CharField(max_length=200, null=True)
-	biaya = models.OneToOneField(Biaya, null=True, on_delete=models.CASCADE)
+	# biaya = models.OneToOneField(Biaya, null=True, on_delete=models.CASCADE)
 	kuantitas = models.PositiveIntegerField()
 	satuan = models.CharField(max_length=200, null=True)
 	harga = models.IntegerField()

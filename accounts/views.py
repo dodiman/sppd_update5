@@ -28,7 +28,7 @@ def registerPage(request):
 			username = form.cleaned_data.get('username')
 
 
-			messages.success(request, 'Account was created for ' + username)
+			messages.success(request, 'Akun Berhasil Di Buat Dengan Nama: ' + username)
 
 			return redirect('login')
 		
@@ -76,7 +76,7 @@ def home(request):
 	# 'pending':pending }
 
 	# return render(request, 'accounts/dashboard2.html', context)
-	return redirect('myapp_index')
+	return redirect('myapp_index_admin')
 
 @login_required(login_url='login')
 def userPage(request):

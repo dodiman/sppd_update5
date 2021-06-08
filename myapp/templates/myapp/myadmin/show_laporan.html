@@ -1,0 +1,39 @@
+{% extends "master.html" %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<h2>halaman SPPD</h2>
+<br />
+<h2>Data SPPD</h2>
+<a href="">tambah</a>
+<br />
+<p></p>
+<hr />
+<table border="1">
+	<thead>
+		<tr>
+			<th>Nomor</th>
+			<th>actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for value in sppd %}
+		<tr>
+			<td>{{ value.nomor }}</td>
+			<td>
+				<a href="{% url 'myapp_show_sppd' value.id %}">lihat</a> | 
+				<a href="">edit</a>  | 
+				<a href="">delete</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+	
+{% endblock %}

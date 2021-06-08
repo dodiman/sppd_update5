@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+    	{% load static %}
+        <meta charset="utf-8" />
+        <title>Django | Admin</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- CSRF Token -->
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="SPPD" name="description" />
+        <meta content="" name="hakim.816" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/bootstrap-toastr/toastr.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static 'assets/global/css/components-md.min.css' %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static 'assets/global/css/plugins-md.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        {% block style %}
+        {% endblock %}
+    </head>
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+        <div class="page-wrapper">
+            <!-- BEGIN HEADER -->
+                <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner ">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="">
+                    <img src="{% static 'assets/layouts/layout/img/logo.png' %}" alt="logo" class="logo-default" />
+                </a>
+                <div class="menu-toggler sidebar-toggler">
+                    <span></span>
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                <span></span>
+            </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                 <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <img alt="" class="img-circle" src="{% static 'assets/layouts/layout/img/admin1.png' %}" />
+                            <span class="username username-hide-on-mobile"> {{ user.get_username }} </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a 
+                                    href="{% url 'logout' %}"
+                                    onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                                >
+                                    <i class="icon-key"></i> Log Out
+                                </a>
+
+                                <form id="logout-form" action="{% url 'logout' %}" method="POST">
+                                    {% csrf_token %}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END QUICK SIDEBAR TOGGLER -->
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+            <!-- END HEADER -->
+            <!-- BEGIN HEADER & CONTENT DIVIDER -->
+            <div class="clearfix"> </div>
+            <!-- END HEADER & CONTENT DIVIDER -->
+            <!-- BEGIN CONTAINER -->
+            <div class="page-container">
+                <!-- BEGIN SIDEBAR -->
+                
+    <div class="page-sidebar-wrapper">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <li class="sidebar-toggler-wrapper hide">
+                    <div class="sidebar-toggler">
+                        <span></span>
+                    </div>
+                </li>
+                {% with request.resolver_match.url_name as url_name %}
+                <li class="nav-item start {% if url_name == 'myapp_index_admin' %} active {% endif %}">
+                    <a href="{% url 'myapp_index_admin' %}" class="nav-link">
+                        <i class="icon-home"></i>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li class="heading">
+                    <h3 class="uppercase">SPPD</h3>
+                </li>
+                <li class="nav-item {% if url_name == 'myapp_surat_perintah_admin' %} active {% endif %}">
+                    
+                    <a href="{% url 'myapp_surat_perintah_admin' %}" class="nav-link">
+                        <i class="icon-docs"></i>
+                        <span class="title">Surat Perintah</span>
+                    </a>
+                </li>
+
+                <li class="nav-item {% if url_name == 'myapp_sppd_admin' %} active {% endif %}">
+                    <a href="{% url 'myapp_sppd_admin' %}" class="nav-link">
+                        <i class="icon-folder-alt"></i>
+                        <span class="title">SPPD</span>
+                    </a>
+                </li>
+
+                <li class="nav-item {% if url_name == 'myapp_pengeluaran_admin' %} active {% endif %}">
+                    <a href="{% url 'myapp_pengeluaran_admin' %}" class="nav-link">
+                        <i class="icon-basket"></i>
+                        <span class="title">Pengeluaran</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item {% if url_name == 'myapp_laporan_admin' %} active {% endif %}">
+                    <a href="{% url 'myapp_laporan_admin' %}" class="nav-link">
+                        <i class="icon-docs"></i>
+                        <span class="title">Laporan</span>
+                    </a>
+                </li>
+                
+
+                <!-- <li class="heading">
+                    <h3 class="uppercase">Data Master</h3>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link">
+                        <i class="icon-calculator"></i>
+                        <span class="title">Biaya</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'myapp_pegawai' %}" class="nav-link">
+                        <i class="icon-users"></i>
+                        <span class="title">Pegawai</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link">
+                        <i class="icon-wallet"></i>
+                        <span class="title">Anggaran</span>
+                    </a>
+                </li> -->
+                <li class="heading">
+                    <h3 class="uppercase">Option</h3>
+                </li>
+                <li class="nav-item {% if url_name == 'myapp_pegawai_admin' %} active {% endif %}">
+                    <a href="{% url 'myapp_pegawai_admin' %}" class="nav-link">
+                        <i class="icon-docs"></i>
+                        <span class="title">Pegawai</span>
+                    </a>
+                </li>
+
+                <li class="nav-item {% if url_name == 'myapp_instansi_admin' %} active {% endif %}">
+                    <a href="{% url 'myapp_instansi_admin' %}" class="nav-link">
+                        <i class="icon-docs"></i>
+                        <span class="title">Instansi</span>
+                    </a>
+                </li>
+
+                {% endwith %}
+                <li class="nav-item ">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        <i class="icon-settings"></i>
+                        <span class="title">Log Out</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+            <!-- END SIDEBAR MENU -->
+        </div>
+        <!-- END SIDEBAR -->
+    </div>
+
+
+                <!-- END SIDEBAR -->
+                <!-- BEGIN CONTENT -->
+                {% block content %}
+                {% endblock %}
+                <!-- END CONTENT -->
+            </div>
+            <!-- END CONTAINER -->
+            <!-- BEGIN FOOTER -->
+            
+                <div class="page-footer">
+        <div class="page-footer-inner"> 2021 &copy; SPPD
+            <!-- <a target="_blank" href="https://dkis.cirebonkota.go.id">DKIS</a> &nbsp;  | Repost by <a href="https://stokcoding.com/" title="StokCoding.com" target="_blank">StokCoding.com</a> -->
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+            <!-- END FOOTER -->
+        </div>
+        <!--[if lt IE 9]>
+        <script src="{% static 'assets/global/plugins/respond.min.js' %}"></script>
+        <script src="{% static 'assets/global/plugins/excanvas.min.js' %}"></script> 
+        <script src="{% static 'assets/global/plugins/ie8.fix.min.js' %}"></script> 
+        <![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap-toastr/toastr.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/select2/js/select2.min.js' %}"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+
+
+       
+
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="{% static 'assets/global/plugins/jquery.min.jst' %}"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/global/plugins/js.cookie.min.js' %}"></script>
+        <script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+
+        <script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap-toastr/toastr.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'assets/global/plugins/select2/js/select2.min.js' %}"></script>
+        <!-- END CORE PLUGINS -->
+         <!-- BEGIN PAGE LEVEL PLUGINS -->
+            
+   
+   
+   <!--  <script type="text/javascript">
+        $('#dataTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "http://127.0.0.1:8000/table/surat",
+            columns: [
+                {data: 'id', name: 'id'},
+                {data: 'nomor', name: 'nomor'},
+                {data: 'tanggal', name: 'tanggal'},
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ]
+        });
+    </script> -->
+
+
+        <script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="{% static 'assets/layouts/layout/scripts/layout.min.js' %}" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        {% block scripts %}
+        {% endblock %}
+    </body>
+
+</html>
