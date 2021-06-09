@@ -79,6 +79,17 @@ class PengeluaranForm(ModelForm):
 		fields = '__all__'
 
 class InstansiForm(ModelForm):
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['nama'].widget.attrs.update({'class': 'form-control'})
+		self.fields['alamat'].widget.attrs.update({'class': 'form-control'})
+		self.fields['telepon'].widget.attrs.update({'class': 'form-control'})
+		
+		self.fields['email'].widget.attrs.update({'class': 'form-control'})
+		self.fields['situs'].widget.attrs.update({'class': 'form-control'})
+		self.fields['logo'].widget.attrs.update({'class': 'form-control'})
+
 	class Meta:
 		model = Instansi
 		fields = '__all__'

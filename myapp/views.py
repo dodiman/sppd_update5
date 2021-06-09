@@ -597,7 +597,7 @@ def updateInstansiAdmin(request, pk):
 			form.save()
 			return redirect('myapp_instansi_admin')
 
-	context = {'form':form}
+	context = {'form':form, 'instansi': instansi}
 	return render(request, 'myapp/myadmin/edit_instansi_form.html', context)
 
 
