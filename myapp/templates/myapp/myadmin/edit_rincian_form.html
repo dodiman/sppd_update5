@@ -36,7 +36,7 @@
 		<!-- END PAGE TITLE-->
 		<!-- END PAGE HEADER-->
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-8">
 				<!-- BEGIN EXAMPLE TABLE PORTLET-->
 				<div class="portlet light bordered">
 					<div class="portlet-title">
@@ -53,8 +53,33 @@
                         <div class="portlet-body">
                         	<form method="post">
                         		{% csrf_token %}
-                        		{{ form.as_p }}
-                        		<input type="submit" value="Submit">
+                        		<div class="form-group">
+								    {{ form.uraian.errors }}
+								    <label for="{{ form.uraian.id_for_label }}">Uraian:</label>
+								    {{ form.uraian }}
+								    <small class="text-danger"></small>
+								</div>
+                        		<div class="form-group">
+								    {{ form.kuantitas.errors }}
+								    <label for="{{ form.kuantitas.id_for_label }}">Kuantitas:</label>
+								    {{ form.kuantitas }}
+								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+								    {{ form.satuan.errors }}
+								    <label for="{{ form.satuan.id_for_label }}">Satuan:</label>
+								    {{ form.satuan }}
+								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+								    {{ form.harga.errors }}
+								    <label for="{{ form.harga.id_for_label }}">Harga:</label>
+								    {{ form.harga }}
+								</div>
+								
+                        		<div class="form-actions right">
+                                	<button type="submit" class="btn green">Simpan</button>
+                            	</div>
                         	</form>
                         </div>
                     </div>

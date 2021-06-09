@@ -36,7 +36,7 @@
 		<!-- END PAGE TITLE-->
 		<!-- END PAGE HEADER-->
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-8">
 				<!-- BEGIN EXAMPLE TABLE PORTLET-->
 				<div class="portlet light bordered">
 					<div class="portlet-title">
@@ -53,11 +53,71 @@
                         <div class="portlet-body">
                         	<form method="post">
                         		{% csrf_token %}
-                        		{{ form.as_p }}
-                        		<a href="{% url 'myapp_rincian_admin' %} " class="btn blue btn-outline" >Lihat Semua Rincian</a>
-                        		<br /> <a href="{% url 'myapp_create_rincian_admin' %}?next={{ request.path|urlencode }} " class="btn blue btn-outline" >Tambah Rincian</a>
-                        		<hr />
-                        		<input type="submit" value="Submit">
+                        		<div class="form-group">
+								    
+								    <label for="{{ form.nomor_bukti_pengeluaran.id_for_label }}">Nomor Bukti Pengeluaran:</label>
+								    {{ form.nomor_bukti_pengeluaran }}
+								    <small class="text-danger">{{ form.nomor_bukti_pengeluaran.errors }}</small>
+								</div>
+                        		<div class="form-group">
+								    {{ form.sumber_dana.errors }}
+								    <label for="{{ form.sumber_dana.id_for_label }}">Sumber Dana:</label>
+								    {{ form.sumber_dana }}
+								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+								    {{ form.keperluan.errors }}
+								    <label for="{{ form.keperluan.id_for_label }}">Keperluan:</label>
+								    {{ form.keperluan }}
+								    <small class="text-danger"></small>
+								</div>
+								
+								<div class="form-group">
+								    <label for="{{ form.tanggal.id_for_label }}">Tanggal:</label>
+									<div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+								    
+								    {{ form.tanggal }}
+								    <span class="input-group-btn">
+							            <button class="btn default" type="button">
+							                <i class="fa fa-calendar"></i>
+							            </button>
+							        </span>
+							        <small class="text-danger">{{ form.tanggal.errors }}</small>
+								</div>
+
+								
+								</div>
+								<div class="form-group">
+								    {{ form.keterangan.errors }}
+								    <label for="{{ form.keterangan.id_for_label }}">Keterangan:</label>
+								    {{ form.keterangan }}
+								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+									<small class="text-danger">{{ form.sppd.errors }}</small>
+								    
+								    <label for="{{ form.sppd.id_for_label }}">SPPD:</label>
+								    {{ form.sppd }}
+								</div>
+								<div class="form-group">
+								    {{ form.rincian.errors }}
+								    <label for="{{ form.rincian.id_for_label }}">Rincian:</label>
+								    {{ form.rincian }}
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<a href="{% url 'myapp_rincian_admin' %} " class="btn blue btn-outline" >Lihat Semua Rincian</a>
+									</div>
+									<div class="col-md-4">
+									 <a href="{% url 'myapp_create_rincian_admin' %}" class="btn blue btn-outline" >Tambah Rincian</a>
+									</div>
+									<br />
+									<br />
+									<br />
+								</div>
+                        		<div class="form-actions right">
+                                	<button type="submit" class="btn green">Simpan</button>
+                           	 	</div>
                         	</form>
                         	
                         </div>
@@ -70,3 +130,53 @@
     </div>
 
 {% endblock %}
+
+{% block scripts %}
+    <script>
+	$(document).ready(function () {
+        $('.date-picker').datepicker({
+            orientation: "left",
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            autoclose: true
+        });
+
+        $( ".select2" ).select2({        
+                ajax: {
+                    url: "/api/select/surat/pegawai",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term // search term
+                        };
+                    },
+                    processResults: function (data) {
+                        // parse the results into the format expected by Select2.
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.nama,
+                                    id: item.id
+                                }
+                            })
+
+                        };
+                    },
+                    cache: true
+                },
+                // minimumInputLength: 2
+                escapeMarkup: function(markup) {
+                    return markup;
+                },
+                multiple: true,
+                allowClear: true,
+                placeholder: 'Type for search company categories',
+                minimumInputLength: 2,
+            });
+        });
+
+</script>
+    {% endblock %}

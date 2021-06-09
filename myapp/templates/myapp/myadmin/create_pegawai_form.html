@@ -30,13 +30,13 @@
 		</div>
 		<!-- END PAGE BAR -->
 		<!-- BEGIN PAGE TITLE-->
-		<h1 class="page-title"> Surat Perintah
+		<h1 class="page-title"> Pegawai
 			<small>Data Table</small>
 		</h1>
 		<!-- END PAGE TITLE-->
 		<!-- END PAGE HEADER-->
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-8">
 				<!-- BEGIN EXAMPLE TABLE PORTLET-->
 				<div class="portlet light bordered">
 					<div class="portlet-title">
@@ -53,10 +53,45 @@
                         <div class="portlet-body">
                         	<form method="post">
                         		{% csrf_token %}
-                        		{{ form.as_p }}
-                        		<input type="submit" value="Submit">
+                        		<div class="form-group">
+								    {{ form.nip.errors }}
+								    <label for="{{ form.nip.id_for_label }}">NIP:</label>
+								    {{ form.nip }}
+								    <small class="text-danger"></small>
+								</div>
+                        		<div class="form-group">
+								    {{ form.nama.errors }}
+								    <label for="{{ form.nama.id_for_label }}">Nama:</label>
+								    {{ form.nama }}
+								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+								    {{ form.pangkat.errors }}
+								    <label for="{{ form.pangkat.id_for_label }}">Pangkat:</label>
+								    {{ form.pangkat }}
+								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+								    {{ form.golongan.errors }}
+								    <label for="{{ form.golongan.id_for_label }}">Golongan:</label>
+								    {{ form.golongan }}
+								</div>
+								<div class="form-group">
+								    {{ form.jabatan.errors }}
+								    <label for="{{ form.jabatan.id_for_label }}">Jabatan:</label>
+								    {{ form.jabatan }}
+								</div>
+								<div class="form-group">
+								    {{ form.status_pegawai.errors }}
+								    <label for="{{ form.status_pegawai.id_for_label }}">Status Pegawai:</label>
+								    {{ form.status_pegawai }}
+								</div>
+                        		<div class="form-actions right">
+                                <button type="submit" class="btn green">Simpan</button>
+                            </div>
                         	</form>
                         </div>
+                        
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>

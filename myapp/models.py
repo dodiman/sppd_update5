@@ -106,10 +106,18 @@ class Sppd(models.Model):
 		return '%s' % (self.nomor)
 
 class Rincian(models.Model):
+
+	SATUAN = (
+			('Hari', 'Hari'),
+			('Minggu', 'Minggu'),
+			('Bulan', 'Bulan'),
+			('Tahun', 'Tahun'),
+			)
+
 	uraian = models.CharField(max_length=200, null=True)
 	# biaya = models.OneToOneField(Biaya, null=True, on_delete=models.CASCADE)
 	kuantitas = models.PositiveIntegerField()
-	satuan = models.CharField(max_length=200, null=True)
+	satuan = models.CharField(max_length=200, null=True, choices=SATUAN)
 	harga = models.IntegerField()
 	jumlahnya = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True, null=True)

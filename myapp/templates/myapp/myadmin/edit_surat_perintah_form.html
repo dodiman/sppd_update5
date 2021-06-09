@@ -53,8 +53,40 @@
                         <div class="portlet-body">
                         	<form method="post">
                         		{% csrf_token %}
-                        		{{ form.as_p }}
-                        		<input type="submit" value="Submit">
+                        		<div class="form-group">
+								    
+								    <label for="{{ form.nomor.id_for_label }}">Nomor:</label>
+								    {{ form.nomor }}
+								    <small class="text-danger">{{ form.nomor.errors }}</small>
+								</div>
+                        		<div class="form-group">
+								    {{ form.uraian.errors }}
+								    <label for="{{ form.uraian.id_for_label }}">Uraian:</label>
+								    {{ form.uraian }}
+								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+								    <label for="{{ form.tanggal.id_for_label }}">Tanggal:</label>
+									<div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+								    
+								    {{ form.tanggal }}
+								    <span class="input-group-btn">
+							            <button class="btn default" type="button">
+							                <i class="fa fa-calendar"></i>
+							            </button>
+							        </span>
+							        <small class="text-danger">{{ form.tanggal.errors }}</small>
+								</div>
+								</div>
+								<div class="form-group">
+								    {{ form.penanggung_jawab.errors }}
+								    <label for="{{ form.penanggung_jawab.id_for_label }}">Penanggung Jawab:</label>
+								    {{ form.penanggung_jawab }}
+								</div>
+								
+                        		<div class="form-actions right">
+                                	<button type="submit" class="btn green">Simpan</button>
+                           	 	</div>
                         	</form>
                         </div>
                     </div>
@@ -65,4 +97,54 @@
         <!-- END CONTENT BODY -->
     </div>
 
+    {% endblock %}
+
+    {% block scripts %}
+    <script>
+	$(document).ready(function () {
+        $('.date-picker').datepicker({
+            orientation: "left",
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            autoclose: true
+        });
+
+        $( ".select2" ).select2({        
+                ajax: {
+                    url: "/api/select/surat/pegawai",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term // search term
+                        };
+                    },
+                    processResults: function (data) {
+                        // parse the results into the format expected by Select2.
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.nama,
+                                    id: item.id
+                                }
+                            })
+
+                        };
+                    },
+                    cache: true
+                },
+                // minimumInputLength: 2
+                escapeMarkup: function(markup) {
+                    return markup;
+                },
+                multiple: true,
+                allowClear: true,
+                placeholder: 'Type for search company categories',
+                minimumInputLength: 2,
+            });
+        });
+
+</script>
     {% endblock %}

@@ -66,9 +66,8 @@ def createRincianAdmin(request):
 
 	context = {
 		'form': form,
-		'next': next
 	}
-	return render(request, 'myapp/myadmin/create_pegawai_form.html', context)
+	return render(request, 'myapp/myadmin/create_rincian_form.html', context)
 
 @login_required(login_url='login')
 def createSppdAdmin(request):
