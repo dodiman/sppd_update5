@@ -81,7 +81,7 @@
                             		<td>{{ value.pangkat }}</td>
                             		<td> 
                                         <a href="{% url 'myapp_update_pegawai_admin' value.id %} " class="btn blue btn-outline" >Ubah</a>
-                                        <a href="{% url 'myapp_update_pegawai_admin' value.id %} " class="btn red btn-outline" onclick="return confirm('apa anda yakin ingin hapus?')" >Hapus</a>
+                                        <a href="{% url 'myapp_delete_pegawai_admin' value.id %} " class="btn red btn-outline" onclick="return confirm('apa anda yakin ingin hapus?')" >Hapus</a>
 
                                     </td>
                             	</tr>

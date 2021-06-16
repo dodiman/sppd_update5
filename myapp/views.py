@@ -131,14 +131,15 @@ def showSuratePerintah(request, pk):
 	instansi = Instansi.objects.first()
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	suratperintah_pegawai = suratperintah.penanggung_jawab
+	pelaksana = suratperintah.pengikut.all()
 
 	try:
 		sppd = Sppd.objects.get(surat_perintah=suratperintah)
-		pelaksana = sppd.pengikut.all()
+		# pelaksana = sppd.pengikut.all()
 		# sppd.suratperintah
 	except ObjectDoesNotExist:
 		sppd = None
-		pelaksana = None
+		# pelaksana = None
 	
 	# try:
 	# 	sppd = Sppd.objects.get(surat_perintah=suratperintah)
@@ -162,7 +163,7 @@ def showSuratePerintah(request, pk):
 @login_required(login_url='login')
 def showSppd(request, pk):
 	sppd = Sppd.objects.get(id=pk)
-	pelaksana = sppd.pengikut.all()
+	pelaksana = sppd.surat_perintah.pengikut.all()
 	instansi = Instansi.objects.first()
 
 
@@ -190,7 +191,13 @@ def showPengeluaran(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
 	total_rincian = pengeluaran.rincian.aggregate(Sum('jumlahnya'))
+
 	# total_rincian = pengeluaran.aggregate(sum('harga'))
+
+	try:
+		bendahara = Pegawai.objects.filter(jabatan__iexact="Bendahara").first()
+	except ObjectDoesNotExist:
+		bendahara = None
 
 	# sppd = Sppd.objects.get(id=pk)
 	# pelaksana = sppd.pengikut.all()
@@ -205,6 +212,7 @@ def showPengeluaran(request, pk):
 
 	context = {
 		'pengeluaran': pengeluaran,
+		'bendahara': bendahara,
 		'instansi': instansi,
 		'rincian': rincian,
 		'total_rincian': total_rincian['jumlahnya__sum'],
@@ -221,6 +229,14 @@ def showPengeluaranAdmin(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
 	total_rincian = pengeluaran.rincian.aggregate(Sum('jumlahnya'))
+	
+	try:
+		bendahara = Pegawai.objects.filter(jabatan__iexact="Bendahara").first()
+	except ObjectDoesNotExist:
+		bendahara = None
+
+
+
 	# total_rincian = pengeluaran.aggregate(sum('harga'))
 
 	# sppd = Sppd.objects.get(id=pk)
@@ -236,6 +252,7 @@ def showPengeluaranAdmin(request, pk):
 
 	context = {
 		'pengeluaran': pengeluaran,
+		'bendahara': bendahara,
 		'rincian': rincian,
 		'instansi': instansi,
 		'total_rincian': total_rincian['jumlahnya__sum'],
@@ -252,6 +269,11 @@ def showRincian(request, pk):
 	rincian = pengeluaran.rincian.all()
 	total_rincian = pengeluaran.rincian.aggregate(Sum('jumlahnya'))
 
+	try:
+		bendahara = Pegawai.objects.filter(jabatan__iexact="Bendahara").first()
+	except ObjectDoesNotExist:
+		bendahara = None
+
 	# try:
 	# 	sppd2 = pengeluaran.sppd
 	# except ObjectDoesNotExist:
@@ -259,6 +281,7 @@ def showRincian(request, pk):
 
 	context = {
 		'pengeluaran': pengeluaran,
+		'bendahara': bendahara,
 		'rincian': rincian,
 		'total_rincian': total_rincian['jumlahnya__sum'],
 	}
@@ -270,6 +293,11 @@ def showRincianAdmin(request, pk):
 	rincian = pengeluaran.rincian.all()
 	total_rincian = pengeluaran.rincian.aggregate(Sum('jumlahnya'))
 
+	try:
+		bendahara = Pegawai.objects.filter(jabatan__iexact="Bendahara").first()
+	except ObjectDoesNotExist:
+		bendahara = None
+
 	# try:
 	# 	sppd2 = pengeluaran.sppd
 	# except ObjectDoesNotExist:
@@ -277,6 +305,7 @@ def showRincianAdmin(request, pk):
 
 	context = {
 		'pengeluaran': pengeluaran,
+		'bendahara': bendahara,
 		'rincian': rincian,
 		'total_rincian': total_rincian['jumlahnya__sum'],
 	}
@@ -643,13 +672,15 @@ def showSuratePerintahAdmin(request, pk):
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	suratperintah_pegawai = suratperintah.penanggung_jawab
 
+	pelaksana = suratperintah.pengikut.all()
+
 	try:
 		sppd = Sppd.objects.get(surat_perintah=suratperintah)
-		pelaksana = sppd.pengikut.all()
+		# pelaksana = sppd.pengikut.all()
 		# sppd.suratperintah
 	except ObjectDoesNotExist:
 		sppd = None
-		pelaksana = None
+		# pelaksana = None
 	
 	# try:
 	# 	sppd = Sppd.objects.get(surat_perintah=suratperintah)
@@ -686,7 +717,8 @@ def sppdAdmin(request):
 def showSppdAdmin(request, pk):
 	instansi = Instansi.objects.first()	
 	sppd = Sppd.objects.get(id=pk)
-	pelaksana = sppd.pengikut.all()
+	pelaksana = sppd.surat_perintah.pengikut.all()
+	# pelaksana = sppd.pengikut.all()
 
 	lama_perjalanan = sppd.tanggal_kembali - sppd.tanggal_kembali
 	print("===========================================")

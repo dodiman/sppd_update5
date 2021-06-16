@@ -27,6 +27,7 @@ class SuratPerintahForm(ModelForm):
 				'readonly': 'readonly'
 			})
 		self.fields['penanggung_jawab'].widget.attrs.update({'class': 'form-control'})
+		self.fields['pengikut'].widget.attrs.update({'class': 'form-control'})
 
 	class Meta:
 		model = Surat_perintah
@@ -49,9 +50,9 @@ class SppdForm(ModelForm):
 				'class': 'form-control',
 				'readonly': 'readonly'
 			})
-		self.fields['pengikut'].widget.attrs.update({'class': 'form-control'})
 		self.fields['keterangan'].widget.attrs.update({'class': 'form-control'})
 		self.fields['surat_perintah'].widget.attrs.update({'class': 'form-control'})
+		self.fields['surat_perintah'].error_messages.update({'unique': 'Nomor Surat Perintah Telah Digunakan '})
 
 	class Meta:
 		model = Sppd
@@ -72,6 +73,7 @@ class PengeluaranForm(ModelForm):
 
 		self.fields['keterangan'].widget.attrs.update({'class': 'form-control'})
 		self.fields['sppd'].widget.attrs.update({'class': 'form-control'})
+		self.fields['sppd'].error_messages.update({'unique': 'Nomor SPPD Telah Digunakan '})
 		self.fields['rincian'].widget.attrs.update({'class': 'form-control'})
 
 	class Meta:

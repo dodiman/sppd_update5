@@ -110,12 +110,7 @@
 								</div>
 								</div>
 								</div>
-								<div class="form-group">
-								    {{ form.pengikut.errors }}
-								    <label for="{{ form.pengikut.id_for_label }}">Pengikut:</label>
-								    {{ form.pengikut }}
-								    <small class="text-danger"></small>
-								</div>
+								
 								<div class="form-group">
 									<small class="text-danger">{{ form.keterangan.errors }}</small>
 								    
@@ -123,9 +118,9 @@
 								    {{ form.keterangan }}
 								</div>
 								<div class="form-group">
-								    {{ form.surat_perintah.errors }}
 								    <label for="{{ form.surat_perintah.id_for_label }}">Surat Perintah:</label>
 								    {{ form.surat_perintah }}
+								    <small class="text-danger">{{ form.surat_perintah.errors.0 }}</small>
 								</div>
 								
                         		<div class="form-actions right">
