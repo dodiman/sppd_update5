@@ -19,9 +19,10 @@ from django.db.models import Count
 @login_required(login_url='login')
 def index(request):
 	context = {}
-	return render(request, 'myapp/dashboard.html', context)
+	return render(request, 'myapp/umum/dashboard.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def surat_perintah(request):
 	suratperintah = Surat_perintah.objects.all()
 
@@ -31,6 +32,7 @@ def surat_perintah(request):
 	return render(request, 'myapp/surat_perintah.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def createSuratPerintah(request):
 	form = SuratPerintahForm()
 
@@ -45,6 +47,7 @@ def createSuratPerintah(request):
 	return render(request, 'myapp/create_surat_perintah_form.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def createPegewaiAdmin(request):
 	form = PegawaiForm()
 
@@ -59,6 +62,7 @@ def createPegewaiAdmin(request):
 	return render(request, 'myapp/myadmin/create_pegawai_form.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def createRincianAdmin(request):
 	form = RincianForm()
 	if request.method == 'POST':
@@ -73,6 +77,7 @@ def createRincianAdmin(request):
 	return render(request, 'myapp/myadmin/create_rincian_form.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def createSppdAdmin(request):
 	form = SppdForm()
 
@@ -87,6 +92,7 @@ def createSppdAdmin(request):
 	return render(request, 'myapp/myadmin/create_sppd_form.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def createPengeluaranAdmin(request):
 	form = PengeluaranForm()
 
@@ -102,6 +108,7 @@ def createPengeluaranAdmin(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def createInstansiAdmin(request):
 	form = InstansiForm()
 
@@ -116,6 +123,7 @@ def createInstansiAdmin(request):
 	return render(request, 'myapp/myadmin/create_surat_perintah_form.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def createSuratPerintahAdmin(request):
 	form = SuratPerintahForm()
 
@@ -130,6 +138,7 @@ def createSuratPerintahAdmin(request):
 	return render(request, 'myapp/myadmin/create_surat_perintah_form.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def showSuratePerintah(request, pk):
 	instansi = Instansi.objects.first()
 	suratperintah = Surat_perintah.objects.get(id=pk)
@@ -166,6 +175,7 @@ def showSuratePerintah(request, pk):
 	return render(request, 'myapp/show_surat_perintah.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def showSppd(request, pk):
 	sppd = Sppd.objects.get(id=pk)
 	pelaksana = sppd.surat_perintah.pengikut.all()
@@ -195,6 +205,7 @@ def showSppd(request, pk):
 	return render(request, 'myapp/show_sppd.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def showPengeluaran(request, pk):
 	instansi = Instansi.objects.first()
 	pengeluaran = Pengeluaran.objects.get(id=pk)
@@ -233,6 +244,7 @@ def showPengeluaran(request, pk):
 	return render(request, 'myapp/show_pengeluaran.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def showPengeluaranAdmin(request, pk):
 	instansi = Instansi.objects.first()
 	pengeluaran = Pengeluaran.objects.get(id=pk)
@@ -273,6 +285,7 @@ def showPengeluaranAdmin(request, pk):
 	return render(request, 'myapp/myadmin/show_pengeluaran.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def showRincian(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
@@ -297,6 +310,7 @@ def showRincian(request, pk):
 	return render(request, 'myapp/show_rincian.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def showRincianAdmin(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
@@ -321,6 +335,7 @@ def showRincianAdmin(request, pk):
 	return render(request, 'myapp/myadmin/show_rincian.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def showLaporan(request, pk):
 	pengeluaran = Pengeluaran.objects.get(id=pk)
 	rincian = pengeluaran.rincian.all()
@@ -350,6 +365,7 @@ def showLaporan(request, pk):
 	return render(request, 'myapp/show_laporan.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def upadateSuratePerintah(request, pk):
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	form = SuratPerintahForm(instance=suratperintah)
@@ -364,36 +380,42 @@ def upadateSuratePerintah(request, pk):
 	return render(request, 'myapp/edit_surat_perintah_form.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def deleteSuratePerintah(request, pk):
 	order = Surat_perintah.objects.get(id=pk)
 	order.delete()
 	return redirect('myapp_surat_perintah_admin')
 
 @login_required(login_url='login')
+@admin_only
 def deleteRincianAdmin(request, pk):
 	order = Rincian.objects.get(id=pk)
 	order.delete()
 	return redirect('myapp_rincian_admin')
 
 @login_required(login_url='login')
+@admin_only
 def deletePegawaiAdmin(request, pk):
 	order = Pegawai.objects.get(id=pk)
 	order.delete()
 	return redirect('myapp_pegawai_admin')
 
 @login_required(login_url='login')
+@admin_only
 def deletePengeluaranAdmin(request, pk):
 	order = Pengeluaran.objects.get(id=pk)
 	order.delete()
 	return redirect('myapp_pengeluaran_admin')
 
 @login_required(login_url='login')
+@admin_only
 def deleteSppdAdmin(request, pk):
 	order = Sppd.objects.get(id=pk)
 	order.delete()
 	return redirect('myapp_sppd_admin')
 
 @login_required(login_url='login')
+@admin_only
 def upadateSuratePerintahAdmin(request, pk):
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	form = SuratPerintahForm(instance=suratperintah)
@@ -409,6 +431,7 @@ def upadateSuratePerintahAdmin(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def deleteSuratPerintah(request, pk):
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	if request.method == "POST":
@@ -419,6 +442,7 @@ def deleteSuratPerintah(request, pk):
 	return redirect('myapp_surat_perintah')
 
 @login_required(login_url='login')
+@admin_only
 def rincianAdmin(request):
 	rincian = Rincian.objects.all()
 
@@ -428,6 +452,7 @@ def rincianAdmin(request):
 	return render(request, 'myapp/myadmin/rincian_admin.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def sppd(request):
 	sppd = Sppd.objects.all()
 
@@ -437,6 +462,7 @@ def sppd(request):
 	return render(request, 'myapp/sppd.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def laporan(request):
 	pengeluaran = Pengeluaran.objects.all()
 	# # total_rincian = pengeluaran.rincian.aggregate(Sum('harga'))
@@ -458,6 +484,7 @@ def laporan(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def laporanAdmin(request):
 	pengeluaran = Pengeluaran.objects.all()
 	# # total_rincian = pengeluaran.rincian.aggregate(Sum('harga'))
@@ -479,6 +506,7 @@ def laporanAdmin(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def pengeluaran(request):
 	pengeluaran = Pengeluaran.objects.all()
 
@@ -490,6 +518,7 @@ def pengeluaran(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def pengeluaranAdmin(request):
 	pengeluaran = Pengeluaran.objects.all()
 
@@ -501,6 +530,7 @@ def pengeluaranAdmin(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def instansiAdmin(request):
 	instansi = Instansi.objects.all()
 
@@ -529,6 +559,7 @@ def pegawaiAdmin(request):
 	return render(request, 'myapp/myadmin/pegawai.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def pegawai(request):
 	pegawai = Pegawai.objects.all()
 	form = PegawaiForm()
@@ -548,6 +579,7 @@ def pegawai(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def updatePegawai(request, pk):
 	pegawai = Pegawai.objects.get(id=pk)
 	form = PegawaiForm(instance=pegawai)
@@ -751,3 +783,79 @@ def showSppdAdmin(request, pk):
 		# 'suratperintah_pegawai': suratperintah_pegawai,
 	}
 	return render(request, 'myapp/myadmin/show_sppd.html', context)
+
+
+# ========================================================================umum======================
+
+@login_required(login_url='login')
+def surat_perintah_umum(request):
+	suratperintah = Surat_perintah.objects.all()
+
+	context = {
+		'suratperintah': suratperintah
+	}
+	return render(request, 'myapp/umum/surat_perintah.html', context)
+
+@login_required(login_url='login')
+def createSuratPerintah_umum(request):
+	form = SuratPerintahForm()
+
+	if request.method == 'POST':
+		form = SuratPerintahForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('myapp_surat_perintah_umum')
+	context = {
+		'form': form
+	}
+	return render(request, 'myapp/umum/create_surat_perintah_form.html', context)
+
+@login_required(login_url='login')
+def showSuratePerintah_umum(request, pk):
+	instansi = Instansi.objects.first()
+	suratperintah = Surat_perintah.objects.get(id=pk)
+	suratperintah_pegawai = suratperintah.penanggung_jawab
+	koordinator = suratperintah.koordinator
+
+	pelaksana = suratperintah.pengikut.all()
+
+	try:
+		sppd = Sppd.objects.get(surat_perintah=suratperintah)
+	except ObjectDoesNotExist:
+		sppd = None
+
+	context = {
+		'suratperintah': suratperintah,
+		'sppd': sppd,
+		'instansi': instansi,
+		'pelaksana': pelaksana,
+		'suratperintah_pegawai': suratperintah_pegawai,
+		'koordinator': koordinator,
+	}
+	# return HttpResponse(sppd)
+	return render(request, 'myapp/umum/show_surat_perintah.html', context)
+
+@login_required(login_url='login')
+def upadateSuratePerintah_umum(request, pk):
+	suratperintah = Surat_perintah.objects.get(id=pk)
+	form = SuratPerintahForm(instance=suratperintah)
+
+	if request.method == 'POST':
+		form = SuratPerintahForm(request.POST, instance=suratperintah)
+		if form.is_valid():
+			form.save()
+			return redirect('myapp_surat_perintah_umum')
+
+	context = {'form':form}
+	return render(request, 'myapp/umum/edit_surat_perintah_form.html', context)
+
+
+@login_required(login_url='login')
+def deleteSuratPerintah_umum(request, pk):
+	suratperintah = Surat_perintah.objects.get(id=pk)
+	if request.method == "POST":
+		suratperintah.delete()
+		return redirect('myapp_surat_perintah_umum')
+
+	suratperintah.delete()
+	return redirect('myapp_surat_perintah_umum')

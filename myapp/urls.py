@@ -65,4 +65,12 @@ urlpatterns = [
 	path('create_rincian_admin', views.createRincianAdmin, name="myapp_create_rincian_admin"),
 	path('update_rincian_admin/<str:pk>/', views.updateRincianAdmin, name="myapp_update_rincian_admin"),
 	path('delete_rincian_admin/<str:pk>/', views.deleteRincianAdmin, name="myapp_delete_rincian_admin"),
+
+	# url untuk umum
+	path('surat_perintah_umum', views.surat_perintah_umum, name='myapp_surat_perintah_umum'),
+	path('create_surat_perintah_umum/', views.createSuratPerintah_umum, name="myapp_create_surat_perintah_umum"),
+	path('show_surat_perintah_umum/<str:pk>/', views.showSuratePerintah_umum, name="myapp_show_surat_perintah_umum"),
+	path('update_surat_perintah_umum/<str:pk>/', views.upadateSuratePerintah_umum, name="myapp_update_surat_perintah_umum"),
+	path('delete_surat_perintah_umum/<str:pk>/', views.deleteSuratPerintah_umum, name="myapp_delete_surat_perintah_umum"),
+
 ]

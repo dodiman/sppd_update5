@@ -28,7 +28,7 @@ class SuratPerintahForm(ModelForm):
 				'readonly': 'readonly'
 			})
 		self.fields['penanggung_jawab'].widget.attrs.update({'class': 'form-control'})
-		self.fields['penanggung_jawab'].queryset = Pegawai.objects.filter(Q(jabatan='Kepala Dinas Kominfo Persandian dan Statistik') | Q(jabatan='Kepala Bidang IKP'))
+		self.fields['penanggung_jawab'].queryset = Pegawai.objects.filter(Q(jabatan='Kepala Dinas Kominfo Persandian dan Statistik') | Q(jabatan='Sekretaris'))
 		self.fields['koordinator'].widget.attrs.update({'class': 'form-control'})
 		self.fields['pengikut'].widget.attrs.update({'class': 'form-control'})
 
