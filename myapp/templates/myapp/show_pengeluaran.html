@@ -118,7 +118,7 @@
                         <tr>
                         <td align="center">Mengatahui / Menyetujui </td>
                         <td>&nbsp;</td>
-                        <td align="center">Manokwari, {{ pengeluaran.keperluan }} </td>
+                        <td align="center" id="waktu">Manokwari, {{ pengeluaran.keperluan }} </td>
                         </tr>
                         <tr>
                         <td align="center">Kepala Dinas Komunikasi </td>
@@ -147,13 +147,13 @@
                         </tr>
                         <tr>
                         <td align="center">{{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nama }} </td>
-                        <td align="center">{{ bendahara.nama|title }}</td>
-                        <td align="center">{{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nama }} </td>
+                        <td align="center">{{ bendahara.nama|upper }}</td>
+                        <td align="center">{{ pengeluaran.pegawai.nama }} </td>
                         </tr>
                         <tr>
                         <td align="center">NIP {{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nip }} </td>
                         <td align="center">NIP {{ bendahara.nip }} </td>
-                        <td align="center">NIP {{ pengeluaran.sppd.surat_perintah.penanggung_jawab.nip }} </td>
+                        <td align="center">NIP {{ pengeluaran.pegawai.nip }} </td>
                         </tr>
                     </tbody>
                     </table>
@@ -167,4 +167,18 @@
 
 
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/moment-with-locales.js' %}"></script>
+<script>
+
+  let waktu = "{{ pengeluaran.tanggal }}";
+  moment.locale('id');
+  let b = moment(waktu);
+  let tempel2 = document.querySelector('#waktu');
+
+  let tampilkan = b.format('Do MMMM YYYY');
+  tempel2.innerText = "Manokwari, " + tampilkan;
+</script>
 {% endblock %}
