@@ -89,10 +89,35 @@
                           <td>&nbsp;</td>
                         </tr>
 
+                        <tr>
+                            <td>1</td>
+                            <td>Nama </td>
+                            <td>: </td>
+                            <td><strong>{{ koordinator.nama }}</strong></td>
+                          </tr>
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td>NIP </td>
+                            <td>: </td>
+                            <td>{{ koordinator.nip }}</td>
+                          </tr>
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td>Jabatan </td>
+                            <td>: </td>
+                            <td>{{ koordinator.jabatan |title }}</td>
+                          </tr>
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                          </tr>
+
                         
                         {% for value in pelaksana %}
                           <tr>
-                            <td>{{ forloop.counter }}</td>
+                            <td>{{ forloop.counter|add:"1" }}</td>
                             <td>Nama </td>
                             <td>: </td>
                             <td><strong>{{ value.nama }}</strong></td>
@@ -163,7 +188,7 @@
                           <td height="18">&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>Pada Tanggal </td>
-                          <td>: {{ suratperintah.tanggal |date:"d M, Y" }}</td>
+                          <td id="waktu">: {{ suratperintah.tanggal |date:"d M, Y" }}</td>
                         </tr>
                         <tr>
                           <td height="18" colspan="4">&nbsp;</td>
@@ -198,4 +223,20 @@
 </div>
 <!-- END CONTENT -->
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/moment-with-locales.js' %}"></script>
+<script>
+
+  let waktu = "{{ suratperintah.tanggal }}";
+  moment.locale('id');
+  let a = moment(waktu);
+  let tempel = document.querySelector('#waktu');
+
+  let waktu_ind = a.format('Do MMMM YYYY');
+  
+  tempel.innerText = ": " + waktu_ind;
+  
+</script>
 {% endblock %}

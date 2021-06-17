@@ -36,7 +36,7 @@
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Surat Perintah
+        <h1 class="page-title"> Surat Perintah Tugas
             <small>Data Table</small>
         </h1>
         <!-- END PAGE TITLE-->
@@ -71,7 +71,7 @@
                             	<tr>
                             		<td>{{ value.id }}</td>
                             		<td>{{ value.nomor }}</td>
-                            		<td>{{ value.tanggal |date:"d M, Y" }}</td>
+                            		<td>{{ value.tanggal |date:"d-m-o" }}</td>
                             		<td><a href="{% url 'myapp_show_surat_perintah_admin' value.id %} " class="btn blue btn-outline" >Lihat</a> 
                                         <a href="{% url 'myapp_update_surat_perintah_admin' value.id %} " class="btn blue btn-outline" >Ubah</a>
                                         <a href="{% url 'myapp_delete_surat_perintah_admin' value.id %} " class="btn red btn-outline" onclick="return confirm('apa anda yakin ingin hapus?')" >Hapus</a>
@@ -107,4 +107,6 @@
             // ]
         });
     </script>
+
 {% endblock %}
+

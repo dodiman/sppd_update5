@@ -30,7 +30,7 @@
 		</div>
 		<!-- END PAGE BAR -->
 		<!-- BEGIN PAGE TITLE-->
-		<h1 class="page-title"> Surat Perintah
+		<h1 class="page-title"> Surat Perintah Tugas
 			<small>Data Table</small>
 		</h1>
 		<!-- END PAGE TITLE-->
@@ -82,6 +82,11 @@
 								    {{ form.penanggung_jawab.errors }}
 								    <label for="{{ form.penanggung_jawab.id_for_label }}">Penanggung Jawab:</label>
 								    {{ form.penanggung_jawab }}
+								</div>
+								<div class="form-group">
+								    {{ form.koordinator.errors }}
+								    <label for="{{ form.koordinator.id_for_label }}">Koordinator:</label>
+								    {{ form.koordinator }}
 								</div>
 								<div class="form-group">
 								    {{ form.pengikut.errors }}

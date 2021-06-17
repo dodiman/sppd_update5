@@ -8,6 +8,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Sum, Avg
 from django.core.exceptions import ObjectDoesNotExist
 
+# json
+# from django.http import JsonResponse
+
 # manipulasi date
 from datetime import date
 # from django.db.models.functions import TruncMonth, TruncDate, TruncDay, TruncHour, TruncMinute, TruncSecond
@@ -132,6 +135,7 @@ def showSuratePerintah(request, pk):
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	suratperintah_pegawai = suratperintah.penanggung_jawab
 	pelaksana = suratperintah.pengikut.all()
+	koordinator = suratperintah.koordinator
 
 	try:
 		sppd = Sppd.objects.get(surat_perintah=suratperintah)
@@ -154,6 +158,7 @@ def showSuratePerintah(request, pk):
 		'suratperintah': suratperintah,
 		'sppd': sppd,
 		'instansi': instansi,
+		'koordinator': koordinator,
 		'pelaksana': pelaksana,
 		'suratperintah_pegawai': suratperintah_pegawai,
 	}
@@ -164,13 +169,15 @@ def showSuratePerintah(request, pk):
 def showSppd(request, pk):
 	sppd = Sppd.objects.get(id=pk)
 	pelaksana = sppd.surat_perintah.pengikut.all()
+	# pelakana2 = pelaksana.order_by("-created_at")[1:]
 	instansi = Instansi.objects.first()
 
+	waktu = sppd.surat_perintah.tanggal
 
 	lama_perjalanan = sppd.tanggal_kembali - sppd.tanggal_kembali
-	print("===========================================")
-	print(type(sppd.tanggal_kembali))
-	print(type(lama_perjalanan))
+	# print("===========================================")
+	# print(type(sppd.tanggal_kembali))
+	# print(type(lama_perjalanan))
 	# suratperintah = Surat_perintah.objects.get(id=pk)
 	# suratperintah_pegawai = suratperintah.penanggung_jawab
 	# sppd = Sppd.objects.get(surat_perintah=suratperintah)
@@ -180,6 +187,8 @@ def showSppd(request, pk):
 		'instansi': instansi,
 		'lama_perjalanan' : lama_perjalanan,
 		'pelaksana': pelaksana,
+		'waktu': waktu,
+		# 'pelaksana2': pelaksana2,
 		# 'suratperintah': suratperintah,
 		# 'suratperintah_pegawai': suratperintah_pegawai,
 	}
@@ -671,6 +680,7 @@ def showSuratePerintahAdmin(request, pk):
 	instansi = Instansi.objects.first()
 	suratperintah = Surat_perintah.objects.get(id=pk)
 	suratperintah_pegawai = suratperintah.penanggung_jawab
+	koordinator = suratperintah.koordinator
 
 	pelaksana = suratperintah.pengikut.all()
 
@@ -697,6 +707,7 @@ def showSuratePerintahAdmin(request, pk):
 		'instansi': instansi,
 		'pelaksana': pelaksana,
 		'suratperintah_pegawai': suratperintah_pegawai,
+		'koordinator': koordinator,
 	}
 	# return HttpResponse(sppd)
 	return render(request, 'myapp/myadmin/show_surat_perintah.html', context)
@@ -718,12 +729,13 @@ def showSppdAdmin(request, pk):
 	instansi = Instansi.objects.first()	
 	sppd = Sppd.objects.get(id=pk)
 	pelaksana = sppd.surat_perintah.pengikut.all()
+	# pelaksana2 = pelaksana.order_by("created_at")[1:]
 	# pelaksana = sppd.pengikut.all()
 
+	waktu = sppd.surat_perintah.tanggal
+	
+
 	lama_perjalanan = sppd.tanggal_kembali - sppd.tanggal_kembali
-	print("===========================================")
-	print(type(sppd.tanggal_kembali))
-	print(type(lama_perjalanan))
 	# suratperintah = Surat_perintah.objects.get(id=pk)
 	# suratperintah_pegawai = suratperintah.penanggung_jawab
 	# sppd = Sppd.objects.get(surat_perintah=suratperintah)
@@ -733,6 +745,7 @@ def showSppdAdmin(request, pk):
 		'sppd': sppd,
 		'lama_perjalanan' : lama_perjalanan,
 		'pelaksana': pelaksana,
+		'waktu': waktu,
 		# 'suratperintah': suratperintah,
 		# 'suratperintah_pegawai': suratperintah_pegawai,
 	}

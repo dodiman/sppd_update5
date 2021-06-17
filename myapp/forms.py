@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from .models import *
+from django.db.models import Q
 
 class PegawaiForm(ModelForm):
 	
@@ -27,6 +28,8 @@ class SuratPerintahForm(ModelForm):
 				'readonly': 'readonly'
 			})
 		self.fields['penanggung_jawab'].widget.attrs.update({'class': 'form-control'})
+		self.fields['penanggung_jawab'].queryset = Pegawai.objects.filter(Q(jabatan='Kepala Dinas Kominfo Persandian dan Statistik') | Q(jabatan='Kepala Bidang IKP'))
+		self.fields['koordinator'].widget.attrs.update({'class': 'form-control'})
 		self.fields['pengikut'].widget.attrs.update({'class': 'form-control'})
 
 	class Meta:

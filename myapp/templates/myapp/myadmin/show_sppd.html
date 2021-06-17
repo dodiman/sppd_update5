@@ -55,13 +55,13 @@
                       <tbody>
                         <tr>
                           <td width="16"> 1</td>
-                          <td width="295">Pejabat berwanang yang memberi perintah </td>
+                          <td width="295">Pejabat berwenang yang memberi perintah </td>
                           <td colspan="2">{{ sppd.surat_perintah.penanggung_jawab.jabatan |title }}</td>
                           </tr>
                         <tr>
                           <td>2 </td>
                           <td>Nama pegawai yang diperintah </td>
-                          <td colspan="2">{{ sppd.surat_perintah.penanggung_jawab.nama |title }}</td>
+                          <td colspan="2">{{ sppd.surat_perintah.koordinator.nama }}</td>
                           </tr>
                         <tr>
                           <td rowspan="2">3 </td>
@@ -92,8 +92,8 @@
                               b. Tanggal harus kembali
                             </td>
                           <td colspan="2">
-                            a. {{ sppd.tanggal_berangkat |date:"d M, Y" }}<br>
-                            b. {{ sppd.tanggal_kembali |date:"d M, Y" }}<br></td>
+                            <p id="waktu_berangkat" style="margin: 0; padding: 0; margin-bottom: 0; padding-bottom: 0;">{{ sppd.tanggal_berangkat |date:"d M, Y" }}</p>
+                            <p id="waktu_kembali" style="margin: 0; padding: 0;">{{ sppd.tanggal_kembali |date:"d M, Y" }}</p></td>
                           </tr>
                         <tr>
                           <td>7 </td>
@@ -103,7 +103,7 @@
                         <tr>
                           <td>8 </td>
                           <td>Pengikut : Nama </td>
-                          <td width="67">NIP </td>
+                          <td width="200">NIP </td>
                           <td width="468">Jabatan </td>
                         </tr>
                         
@@ -111,7 +111,7 @@
                           <tr>
                               <td>&nbsp;</td>
                               <td>{{ forloop.counter }}. 
-                                  {{ value.nama |title }}
+                                  {{ value.nama |upper }}
 
                                 </td>
                               <td>{{ value.nip }}</td>
@@ -150,7 +150,7 @@
                           <td height="18">&nbsp;</td>
                           <td>&nbsp;</td>
                           <td>Pada Tanggal </td>
-                          <td>: {{ sppd.surat_perintah.tanggal |date:"d M, Y" }}</td>
+                          <td id="waktu">: {{ sppd.surat_perintah.tanggal |date:"d M, Y" }}</td>
                         </tr>
                         <tr>
                           <td height="18" colspan="4">&nbsp;</td>
@@ -185,5 +185,28 @@
 <!-- END CONTENT -->
 
 
+{% endblock %}
 
+{% block scripts %}
+<script src="{% static 'js/moment-with-locales.js' %}"></script>
+<script>
+
+  let waktu = "{{ waktu }}";
+  let waktu_berangkat = "{{ sppd.tanggal_berangkat }}";
+  let waktu_kembali = "{{ sppd.tanggal_kembali }}";
+  moment.locale('id');
+  let a = moment(waktu);
+  let b = moment(waktu_berangkat);
+  let c = moment(waktu_kembali);
+  let tempel = document.querySelector('#waktu');
+  let tempel2 = document.querySelector('#waktu_berangkat');
+  let tempel3 = document.querySelector('#waktu_kembali');
+
+  let waktu_ind = a.format('Do MMMM YYYY');
+  let waktu_ind2 = b.format('Do MMMM YYYY');
+  let waktu_ind3 = c.format('Do MMMM YYYY');
+  tempel.innerText = waktu_ind;
+  tempel2.innerText = "a. "+ waktu_ind2;
+  tempel3.innerText = "b. "+ waktu_ind3;
+</script>
 {% endblock %}

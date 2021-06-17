@@ -39,7 +39,7 @@ ANGGARAN PERJALANAN DINAS</span></b></p>
                         {% for value in pengeluaran %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td>{{ value.tanggal |date:"d M, Y" }}</td>
+                                <td>{{ value.tanggal |date:"d-m-o" }}</td>
                                 <td>{{ value.sppd.nomor }}</td>
                                 <td>{{ value.keperluan }}</td>
                                 <td>Rp {{ value.total_nya.jumlahnya__sum }}</td>

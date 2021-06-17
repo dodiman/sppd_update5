@@ -60,7 +60,7 @@
                         <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th class="">id</th>
+                                    <th class="">No</th>
                                     <th class="">Nomor</th>
                                     <th class="">SPPD</th>
                                     <th class="">Tanggal</th>
@@ -74,7 +74,7 @@
                             		<td>{{ forloop.counter }}</td>
                             		<td>{{ value.nomor_bukti_pengeluaran }}</td>
                             		<td>{{ value.sppd.nomor }}</td>
-                            		<td>{{ value.tanggal |date:"d M, Y" }}</td>
+                            		<td>{{ value.tanggal |date:"d-m-o" }}</td>
                             		<td><a href="{% url 'myapp_show_pengeluaran_admin' value.id %}" class="btn blue btn-outline">Lihat</a> <a href="{% url 'show_rincian_admin' value.id %}" class="btn blue btn-outline">Lihat Rincian</a>
 
                                          <a href="{% url 'myapp_update_pengeluaran_admin' value.id %} " class="btn blue btn-outline" >Ubah</a>

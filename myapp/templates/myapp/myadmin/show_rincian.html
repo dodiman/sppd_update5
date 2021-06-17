@@ -30,7 +30,7 @@
                         <tr>
                             <td>Tanggal </td>
                             <td> :</td>
-                            <td>{{ pengeluaran.sppd.tanggal_berangkat |date:"d M, Y" }} s/d  {{ pengeluaran.sppd.tanggal_kembali |date:"d M, Y" }}</td>
+                            <td><p style="padding: 0; margin: 0;" id="waktu">{{ pengeluaran.sppd.tanggal_berangkat |date:"d M, Y" }} s/d  {{ pengeluaran.sppd.tanggal_kembali |date:"d M, Y" }}</p></td>
                         </tr>
                         </tbody>
                     </table>
@@ -176,4 +176,22 @@
 
 
 
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'js/moment-with-locales.js' %}"></script>
+<script>
+
+  let waktu_berangkat = "{{ pengeluaran.sppd.tanggal_berangkat }}";
+  let waktu_kembali = "{{ pengeluaran.sppd.tanggal_kembali }}";
+  moment.locale('id');
+  let b = moment(waktu_berangkat);
+  let c = moment(waktu_kembali);
+  let tempel2 = document.querySelector('#waktu');
+
+  let waktu_ind2 = b.format('Do MMMM YYYY');
+  let waktu_ind3 = c.format('Do MMMM YYYY');
+  tempel2.innerText = waktu_ind2 + " s/d " + waktu_ind3;
+</script>
 {% endblock %}

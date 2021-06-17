@@ -73,6 +73,7 @@ class Surat_perintah(models.Model):
 	uraian = models.CharField(max_length=200, null=True)
 	tanggal = models.DateField(null=True)
 	penanggung_jawab = models.ForeignKey(Pegawai, on_delete=models.CASCADE)
+	koordinator = models.ForeignKey(Pegawai, on_delete=models.CASCADE, related_name='+')
 	pengikut = models.ManyToManyField(Pegawai, blank=True, null=True, related_name="surat_perintahs")
 	# status = models.CharField(max_length=200, null=True)
 	created_at = models.DateTimeField(auto_now_add=True, null=True)
