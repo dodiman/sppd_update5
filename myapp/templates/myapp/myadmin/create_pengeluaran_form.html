@@ -61,7 +61,7 @@
 								</div>
                         		<div class="form-group">
 								    {{ form.sumber_dana.errors }}
-								    <label for="{{ form.sumber_dana.id_for_label }}">Sumber Dana:</label>
+								    <label for="{{ form.sumber_dana.id_for_label }}">Telah di Terima dari:</label>
 								    {{ form.sumber_dana }}
 								    <small class="text-danger"></small>
 								</div>
@@ -92,6 +92,12 @@
 								    <label for="{{ form.keterangan.id_for_label }}">Keterangan:</label>
 								    {{ form.keterangan }}
 								    <small class="text-danger"></small>
+								</div>
+								<div class="form-group">
+								    
+								    <label for="{{ form.pegawai.id_for_label }}">Pegawai:</label>
+								    {{ form.pegawai }}
+								    <small class="text-danger">{{ form.pegawai.errors.0 }}</small>
 								</div>
 								<div class="form-group">
 								    

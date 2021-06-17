@@ -497,6 +497,7 @@ def pengeluaranAdmin(request):
 		'pengeluaran': pengeluaran
 	}
 	return render(request, 'myapp/myadmin/pengeluaran.html', context)
+	# return render(request, 'myapp/myadmin/pengeluaran.html', context)
 
 
 @login_required(login_url='login')

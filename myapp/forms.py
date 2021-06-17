@@ -75,6 +75,7 @@ class PengeluaranForm(ModelForm):
 			})
 
 		self.fields['keterangan'].widget.attrs.update({'class': 'form-control'})
+		self.fields['pegawai'].widget.attrs.update({'class': 'form-control'})
 		self.fields['sppd'].widget.attrs.update({'class': 'form-control'})
 		self.fields['sppd'].error_messages.update({'unique': 'Nomor SPPD Telah Digunakan '})
 		self.fields['rincian'].widget.attrs.update({'class': 'form-control'})

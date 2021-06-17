@@ -96,6 +96,13 @@
 								<div class="form-group">
 									
 								    
+								    <label for="{{ form.pegawai.id_for_label }}">Pegawai:</label>
+								    {{ form.pegawai }}
+								    <small class="text-danger">{{ form.pegawai.errors.0 }}</small>
+								</div>
+								<div class="form-group">
+									
+								    
 								    <label for="{{ form.sppd.id_for_label }}">SPPD:</label>
 								    {{ form.sppd }}
 								    <small class="text-danger">{{ form.sppd.errors.0 }}</small>
