@@ -48,11 +48,13 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-settings font-dark"></i>
-                            <span class="caption-subject bold uppercase">Data</span>
+                            <span class="caption-subject bold uppercase">Data</span> 
                         </div>
+                        {% if jumlah_none != 0 %}
+                        <span class="badge badge-danger right">Terdapat {{ jumlah_none }} data yang belum dilengkapi, silakan cek di surat perintah</span>
+                        {% endif %}
                         <div class="actions">
-                            <a href="{% url 'myapp_create_sppd_admin' %}" class="btn blue btn-outline">
-                                <i class="fa fa-plus"></i> Tambah </a>
+                            
                         </div>
                         <div class="tools"> </div>
                     </div>
@@ -63,7 +65,7 @@
                                     <th class="">No</th>
                                     <th class="">Nomor SP</th>
                                     <th class="">Nomor SPPD</th>
-                                    <th class="">Atas Nama</th>
+                                   
                                     <th class="">Tanggal</th>
                                     <!-- <th class="">Status</th> -->
                                     <th class=""></th>
@@ -74,14 +76,30 @@
                             	<tr>
                             		<td>{{ forloop.counter }}</td>
                             		<td>{{ value.surat_perintah.nomor }}</td>
-                            		<td>{{ value.nomor }}</td>
-                            		<td>{{ value.surat_perintah.penanggung_jawab.nama }}</td>
+                            		<td>
+                                        {% if value.nomor == None %}
+                                            <span class="btn btn-info">masih kosong</span>
+                                        {% else %}
+                                            {{ value.nomor }}
+                                        {% endif %}
+
+                                    </td>
+                            		
                             		<td>{{ value.surat_perintah.tanggal |date:"d-m-o" }}</td>
                             		<!-- <td></td> -->
-                            		<td><a href="{% url 'myapp_show_sppd_admin' value.id %}" class="btn blue btn-outline">lihat</a>
+                            		<td>
+                                        {% if value.nomor != None %}
+                                        <a href="{% url 'myapp_show_sppd_admin' value.id %}" class="btn blue btn-outline">lihat</a>
+                                        {% endif %}
 
                                          <a href="{% url 'myapp_update_sppd_admin' value.id %} " class="btn blue btn-outline" >Ubah</a>
-                                        <a href="{% url 'myapp_delete_sppd_admin' value.id %} " class="btn red btn-outline" onclick="return confirm('apa anda yakin ingin hapus?')" >Hapus</a>
+                                        <a href="{% url 'myapp_delete_surat_perintah_admin_' value.surat_perintah.id %} " class="btn red btn-outline" onclick="return confirm('apa anda yakin ingin hapus?')" >Hapus</a>
+
+                                        {% if value.nomor == None %}
+                                        <a href="{% url 'myapp_update_sppd_admin' value.id %} " class="btn btn-danger" >No Sppd Belum ada</a>
+                                        {% endif %}
+
+                                        
                                     </td>
                             	</tr>
                             	{% endfor %}

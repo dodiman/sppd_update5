@@ -53,18 +53,25 @@
                         <div class="portlet-body">
                         	<form method="post">
                         		{% csrf_token %}
+                        		
+                        		<div class="form-group" hidden="">
+								    <label for="{{ form.surat_perintah.id_for_label }}">Surat Perintah:</label>
+                        			{{ form.surat_perintah }}
+								    
+								</div>
+
+								<div class="form-group">
+								    <label">Surat Perintah:</label>
+								    <input class="form-control" type="text" value="{{ suratperintah.nomor }}" disabled="">
+								</div>
+
                         		<div class="form-group">
 								    
 								    <label for="{{ form.nomor.id_for_label }}">Nomor:</label>
 								    {{ form.nomor }}
 								    <small class="text-danger">{{ form.nomor.errors }}</small>
 								</div>
-                        		<div class="form-group">
-								    {{ form.maksud_perjalanan.errors }}
-								    <label for="{{ form.maksud_perjalanan.id_for_label }}">Maksud Perjalanan:</label>
-								    {{ form.maksud_perjalanan }}
-								    <small class="text-danger"></small>
-								</div>
+                        		
 								<div class="form-group">
 								    {{ form.tempat_berangkat.errors }}
 								    <label for="{{ form.tempat_berangkat.id_for_label }}">Tempat Berangkat:</label>
@@ -117,11 +124,7 @@
 								    <label for="{{ form.keterangan.id_for_label }}">Keterangan:</label>
 								    {{ form.keterangan }}
 								</div>
-								<div class="form-group">
-								    <label for="{{ form.surat_perintah.id_for_label }}">Surat Perintah:</label>
-								    {{ form.surat_perintah }}
-								    <small class="text-danger">{{ form.surat_perintah.errors.0 }}</small>
-								</div>
+								
 								
                         		<div class="form-actions right">
                                 	<button type="submit" class="btn green">Simpan</button>

@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import *
 from django.db.models import Q
 
@@ -41,7 +42,6 @@ class SppdForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['nomor'].widget.attrs.update({'class': 'form-control'})
-		self.fields['maksud_perjalanan'].widget.attrs.update({'class': 'form-control'})
 		self.fields['tempat_berangkat'].widget.attrs.update({'class': 'form-control'})
 		self.fields['tempat_tujuan'].widget.attrs.update({'class': 'form-control'})
 		self.fields['tanggal_berangkat'].widget.attrs.update({

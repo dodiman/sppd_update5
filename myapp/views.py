@@ -78,16 +78,25 @@ def createRincianAdmin(request):
 
 @login_required(login_url='login')
 @admin_only
-def createSppdAdmin(request):
+def createSppdAdmin(request, pk):
+	suratperintah = Surat_perintah.objects.get(nomor=pk)
 	form = SppdForm()
 
 	if request.method == 'POST':
+		# mutable = request.POST._mutable
+		# request.POST._mutable = True
+		# request.POST['surat_perintah'] = suratperintah.nomor
+		# request.POST._mutable = mutable
+
+		print(request.POST)
+
 		form = SppdForm(request.POST)
 		if form.is_valid():
 			form.save()
 			return redirect('myapp_sppd_admin')
 	context = {
-		'form': form
+		'form': form,
+		'suratperintah': suratperintah
 	}
 	return render(request, 'myapp/myadmin/create_sppd_form.html', context)
 
@@ -388,6 +397,13 @@ def deleteSuratePerintah(request, pk):
 
 @login_required(login_url='login')
 @admin_only
+def deleteSuratePerintah_(request, pk):
+	order = Surat_perintah.objects.get(id=pk)
+	order.delete()
+	return redirect('myapp_sppd_admin')
+
+@login_required(login_url='login')
+@admin_only
 def deleteRincianAdmin(request, pk):
 	order = Rincian.objects.get(id=pk)
 	order.delete()
@@ -644,15 +660,17 @@ def upadateSppdAdmin(request, pk):
 @admin_only
 def upadateSppdAdmin(request, pk):
 	sppd = Sppd.objects.get(id=pk)
+	suratperintah = sppd.surat_perintah 
 	form = SppdForm(instance=sppd)
 
 	if request.method == 'POST':
+		print(request.POST)
 		form = SppdForm(request.POST, instance=sppd)
 		if form.is_valid():
 			form.save()
 			return redirect('myapp_sppd_admin')
 
-	context = {'form':form}
+	context = {'form':form, 'suratperintah': suratperintah}
 	return render(request, 'myapp/myadmin/edit_sppd_form.html', context)
 
 
@@ -700,10 +718,13 @@ def index_admin(request):
 @login_required(login_url='login')
 @admin_only
 def surat_perintah_admin(request):
-	suratperintah = Surat_perintah.objects.all()
+	sppd = Sppd.objects.filter(nomor = None)
+	suratperintah = Surat_perintah.objects.all().order_by('-created_at')
+	jumlah_none = sppd.count()
 
 	context = {
-		'suratperintah': suratperintah
+		'suratperintah': suratperintah,
+		'jumlah_none': jumlah_none
 	}
 	return render(request, 'myapp/myadmin/surat_perintah.html', context)
 
@@ -748,10 +769,12 @@ def showSuratePerintahAdmin(request, pk):
 @login_required(login_url='login')
 @admin_only
 def sppdAdmin(request):
-	sppd = Sppd.objects.all()
+	sppd = Sppd.objects.exclude(nomor = None).order_by('-created_at')
+	jumlah_none = Sppd.objects.filter(nomor = None).count()
 
 	context = {
 		'sppd': sppd,
+		'jumlah_none': jumlah_none
 	}
 	return render(request, 'myapp/myadmin/sppd.html', context)
 
@@ -761,26 +784,22 @@ def sppdAdmin(request):
 def showSppdAdmin(request, pk):
 	instansi = Instansi.objects.first()	
 	sppd = Sppd.objects.get(id=pk)
-	pelaksana = sppd.surat_perintah.pengikut.all()
-	# pelaksana2 = pelaksana.order_by("created_at")[1:]
-	# pelaksana = sppd.pengikut.all()
 
-	waktu = sppd.surat_perintah.tanggal
+	try:
+		pelaksana = sppd.surat_perintah.pengikut.all()
+		waktu = sppd.surat_perintah.tanggal
+		lama_perjalanan = sppd.tanggal_kembali - sppd.tanggal_kembali
+	except TypeError:
+		pelaksana = None
+		waktu = None
+		lama_perjalanan = None
 	
-
-	lama_perjalanan = sppd.tanggal_kembali - sppd.tanggal_kembali
-	# suratperintah = Surat_perintah.objects.get(id=pk)
-	# suratperintah_pegawai = suratperintah.penanggung_jawab
-	# sppd = Sppd.objects.get(surat_perintah=suratperintah)
-
 	context = {
 		'instansi': instansi,
 		'sppd': sppd,
 		'lama_perjalanan' : lama_perjalanan,
 		'pelaksana': pelaksana,
 		'waktu': waktu,
-		# 'suratperintah': suratperintah,
-		# 'suratperintah_pegawai': suratperintah_pegawai,
 	}
 	return render(request, 'myapp/myadmin/show_sppd.html', context)
 

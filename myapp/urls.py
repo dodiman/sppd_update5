@@ -33,10 +33,11 @@ urlpatterns = [
 	path('show_surat_perintah_admin/<str:pk>/', views.showSuratePerintahAdmin, name="myapp_show_surat_perintah_admin"),
 	path('update_surat_perintah_admin/<str:pk>/change', views.upadateSuratePerintahAdmin, name="myapp_update_surat_perintah_admin"),
 	path('delete_surat_perintah_admin/<str:pk>/', views.deleteSuratePerintah, name="myapp_delete_surat_perintah_admin"),
+	path('delete_surat_perintah_admin_/<str:pk>/', views.deleteSuratePerintah_, name="myapp_delete_surat_perintah_admin_"),
 
 
 	path('sppd_admin', views.sppdAdmin, name='myapp_sppd_admin'),
-	path('create_sppd_admin', views.createSppdAdmin, name="myapp_create_sppd_admin"),
+	path('create_sppd_admin/<str:pk>/', views.createSppdAdmin, name="myapp_create_sppd_admin"),
 	path('update_sppd_admin/<str:pk>/change', views.upadateSppdAdmin, name="myapp_update_sppd_admin"),
 	path('show_sppd_admin/<str:pk>/', views.showSppdAdmin, name="myapp_show_sppd_admin"),
 	path('delete_sppd_admin/<str:pk>/', views.deleteSppdAdmin, name="myapp_delete_sppd_admin"),

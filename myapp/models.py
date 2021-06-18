@@ -88,7 +88,6 @@ class Surat_perintah(models.Model):
 
 class Sppd(models.Model):
 	nomor = models.CharField(max_length=200, null=True)
-	maksud_perjalanan = models.CharField(max_length=200, null=True)
 	tempat_berangkat = models.CharField(max_length=200, null=True)
 	tempat_tujuan = models.CharField(max_length=200, null=True)
 	tanggal_berangkat = models.DateField(null=True)
@@ -183,19 +182,19 @@ class Anggaran(models.Model):
 		return '%s' % (self.tahun)
 
 # simpan otomatis one to one
-# @receiver(post_save, sender=Surat_perintah)
-# def create_sppd(sender, instance, created, **kwargs):
-# 	if created:
-# 		# group = Group.objects.get(name='customer')
-# 		# instance.groups.add(group)
-# 		Sppd.objects.create(
-# 			surat_perintah=instance,
-# 			# name=instance.username,
-# 			)
-# 		print('sppd create!')
+@receiver(post_save, sender=Surat_perintah)
+def create_sppd(sender, instance, created, **kwargs):
+	if created:
+		# group = Group.objects.get(name='customer')
+		# instance.groups.add(group)
+		Sppd.objects.create(
+			surat_perintah=instance,
+			# name=instance.username,
+			)
+		print('sppd create!')
 
-# @receiver(post_save, sender=Surat_perintah)
-# def update_sppd(sender, instance, created, **kwargs):
-# 	if created == False:
-# 		instance.sppd.save()
-# 		print('sppd update')
+@receiver(post_save, sender=Surat_perintah)
+def update_sppd(sender, instance, created, **kwargs):
+	if created == False:
+		instance.sppd.save()
+		print('sppd update')
