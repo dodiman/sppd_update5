@@ -53,11 +53,15 @@
                         <div class="portlet-body">
                         	<form method="post">
                         		{% csrf_token %}
-                        		<div class="form-group">
+                        		<div class="form-group" hidden="">
 								    
 								    <label for="{{ form.nomor.id_for_label }}">Nomor:</label>
 								    {{ form.nomor }}
 								    <small class="text-danger">{{ form.nomor.errors }}</small>
+								</div>
+								<div class="form-group">
+									<label>Nomor:</label>
+									<input type="text" value="{{ form.nomor.value }}" class="form-control" disabled="">
 								</div>
                         		<div class="form-group">
 								    {{ form.uraian.errors }}

@@ -65,10 +65,10 @@
 								    <input class="form-control" type="text" value="{{ suratperintah.nomor }}" disabled="">
 								</div>
 
-                        		<div class="form-group">
+                        		<div class="form-group" hidden="">
 								    
 								    <label for="{{ form.nomor.id_for_label }}">Nomor:</label>
-								    {{ form.nomor }}
+								    <input type="text" name="nomor" value=" ">
 								    <small class="text-danger">{{ form.nomor.errors }}</small>
 								</div>
                         		

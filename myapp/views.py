@@ -79,7 +79,9 @@ def createRincianAdmin(request):
 @login_required(login_url='login')
 @admin_only
 def createSppdAdmin(request, pk):
+	data_terakhir = Sppd.objects.latest('created_at')
 	suratperintah = Surat_perintah.objects.get(nomor=pk)
+
 	form = SppdForm()
 
 	if request.method == 'POST':
@@ -88,7 +90,47 @@ def createSppdAdmin(request, pk):
 		# request.POST['surat_perintah'] = suratperintah.nomor
 		# request.POST._mutable = mutable
 
-		print(request.POST)
+
+		# membuat manipasi value post
+		post = request.POST.copy() 			# make it mutable  # typedata post = queryset
+		post_d = post.dict()
+		tanggalnya = post_d.get('tanggal')
+		
+		
+		# mengubah angka ke romawi
+		num_map = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), (100, 'C'), (90, 'XC'),
+		           (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')]
+
+		def num2roman(num):
+
+		    roman = ''
+
+		    while num > 0:
+		        for i, r in num_map:
+		            while num >= i:
+		                roman += r
+		                num -= i
+
+		    return roman
+
+
+		tahun = int(tanggalnya[:4])
+		bulan = int(tanggalnya[5:7])
+		bulan = num2roman(bulan)
+
+		nomor_str = '001'
+		if data_terakhir.exists():
+			gabung = data_terakhir.nomor
+			nomor = int(gabung[:3]) + 1
+			nomor_str = '%03d' % nomor
+
+		no_sppd = nomor_str + "/SPPD/DISKOMINFO-PB/" + bulan + "/" + str(tahun)
+
+		post['nomor'] = no_sppd
+
+		request.POST = post
+
+		# print(request.POST)
 
 		form = SppdForm(request.POST)
 		if form.is_valid():
@@ -134,13 +176,71 @@ def createInstansiAdmin(request):
 @login_required(login_url='login')
 @admin_only
 def createSuratPerintahAdmin(request):
+	cek_data = Surat_perintah.objects.exists()
+
+	try:
+		data_terakhir = Surat_perintah.objects.latest('created_at')
+	except ObjectDoesNotExist:
+		data_terakhir = None
+
+
 	form = SuratPerintahForm()
 
+
+	a = ''
+
 	if request.method == 'POST':
+		
+
+		# membuat manipasi value post
+		post = request.POST.copy() 			# make it mutable  # typedata post = queryset
+		post_d = post.dict()
+		tanggalnya = post_d.get('tanggal')
+		
+		
+		# mengubah angka ke romawi
+		num_map = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), (100, 'C'), (90, 'XC'),
+		           (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')]
+
+		def num2roman(num):
+
+		    roman = ''
+
+		    while num > 0:
+		        for i, r in num_map:
+		            while num >= i:
+		                roman += r
+		                num -= i
+
+		    return roman
+
+
+		tahun = int(tanggalnya[:4])
+		bulan = int(tanggalnya[5:7])
+		bulan = num2roman(bulan)
+
+		nomor_str = '001'
+		if cek_data:
+			gabung = data_terakhir.nomor
+			nomor = int(gabung[:3]) + 1
+			nomor_str = '%03d' % nomor
+
+		
+
+		no_spt = nomor_str + "/SPT/DISKOMINFO-PB/" + bulan + "/" + str(tahun)
+
+		post['nomor'] = no_spt
+
+		request.POST = post
+
+
 		form = SuratPerintahForm(request.POST)
 		if form.is_valid():
 			form.save()
 			return redirect('myapp_surat_perintah_admin')
+
+		# return redirect('myapp_create_surat_perintah_admin')   # contoh
+	
 	context = {
 		'form': form
 	}
@@ -664,7 +764,16 @@ def upadateSppdAdmin(request, pk):
 	form = SppdForm(instance=sppd)
 
 	if request.method == 'POST':
-		print(request.POST)
+
+		# membuat manipasi value post
+		post = request.POST.copy() 			# make it mutable  # typedata post = queryset
+		no_spt = suratperintah.nomor
+
+		no_sppd = no_spt.replace('SPT', 'SPPD')
+		post['nomor'] = no_sppd
+
+		request.POST = post
+		
 		form = SppdForm(request.POST, instance=sppd)
 		if form.is_valid():
 			form.save()
@@ -808,8 +917,8 @@ def showSppdAdmin(request, pk):
 
 @login_required(login_url='login')
 def surat_perintah_umum(request):
-	suratperintah = Surat_perintah.objects.all()
-
+	suratperintah = Surat_perintah.objects.all().order_by('-created_at')
+		
 	context = {
 		'suratperintah': suratperintah
 	}
